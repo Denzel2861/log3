@@ -2822,6 +2822,466 @@
         print-color-adjust: exact;
       }
     }
+
+    /* ==========================================================================
+       12. STREAMLINED UX: COLLAPSIBLE REMARKS, SNIPPETS, INTERACTIVE CHIPS,
+           BOTTOM NAV, SIGNATURE PAD, READINESS CHECK & UNDO SNACKBAR
+       ========================================================================== */
+    .snippets-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .snippet-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      max-width: 220px;
+      transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+    }
+
+    .snippet-chip:hover {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+
+    .snippet-chip-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .snippet-del-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: inherit;
+      opacity: 0.65;
+      cursor: pointer;
+      padding: 0;
+      font-size: 0.85rem;
+      line-height: 1;
+      margin-left: 2px;
+    }
+
+    .snippet-del-btn:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .snippet-add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed var(--outline);
+      background: transparent;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease;
+    }
+
+    .snippet-add-btn:hover {
+      background: var(--state-primary-hover);
+      border-color: var(--primary);
+    }
+
+    .snippet-inline-adder {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .snippet-inline-adder.open {
+      display: flex;
+    }
+
+    .snippet-inline-adder .m3-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+    }
+
+    .remarks-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .remarks-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px dashed var(--outline);
+      background: var(--surface-container-low);
+      color: var(--primary);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .remarks-toggle-btn:hover {
+      background: var(--state-primary-hover);
+      border-color: var(--primary);
+    }
+
+    .draft-badge {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+      background: var(--surface-container);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .draft-badge.visible {
+      display: inline-flex;
+    }
+
+    /* Interactive One-Tap Status Chip */
+    .chip-interactive {
+      cursor: pointer;
+      transition: filter 0.14s ease, transform 0.1s ease;
+      font-family: inherit;
+    }
+
+    .chip-interactive:hover {
+      filter: brightness(0.94);
+    }
+
+    .chip-interactive:active {
+      transform: scale(0.95);
+    }
+
+    .btn-carry-over {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid var(--primary-border-soft);
+      background: var(--surface);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.14s ease, transform 0.1s ease;
+    }
+
+    .btn-carry-over:hover {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .btn-carry-over:active {
+      transform: scale(0.96);
+    }
+
+    /* Snackbar with Undo Action */
+    .m3-snackbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .snackbar-action-btn {
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    :root:not([data-theme="dark"]) .snackbar-action-btn {
+      color: #a8c7fa;
+    }
+
+    :root[data-theme="dark"] .snackbar-action-btn {
+      color: #0b57d0;
+    }
+
+    .snackbar-action-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Export Readiness Banner */
+    .readiness-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .readiness-bar.ready {
+      background: var(--success-container);
+      color: var(--on-success-container);
+      border: 1px solid rgba(15, 92, 38, 0.25);
+    }
+
+    .readiness-bar.warn {
+      background: var(--warning-container);
+      color: var(--on-warning-container);
+      border: 1px solid rgba(143, 77, 0, 0.25);
+    }
+
+    .readiness-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Signature Pad Modal & Preview Image */
+    .sig-pad-wrap {
+      border: 1.5px dashed var(--outline);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      overflow: hidden;
+      margin-bottom: 14px;
+      touch-action: none;
+    }
+
+    .sig-canvas {
+      display: block;
+      width: 100%;
+      height: 170px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .bp-sig-img {
+      max-height: 44px;
+      max-width: 210px;
+      vertical-align: bottom;
+      display: inline-block;
+      margin-bottom: -4px;
+    }
+
+    .bp-sig-action-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 10px;
+      vertical-align: middle;
+      font-family: var(--font-sans);
+    }
+
+    .bp-sign-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 9999px;
+      border: 1px solid #0b57d0;
+      background: #eef4ff;
+      color: #0b57d0;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bp-sign-btn:hover {
+      background: #d3e3fd;
+    }
+
+    .bp-sign-clear-btn {
+      border: 1px solid #a51d16;
+      background: #fff5f5;
+      color: #a51d16;
+    }
+
+    .bp-sign-clear-btn:hover {
+      background: #fad4d1;
+    }
+
+    /* Reminder Toggle Switch */
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: var(--surface-container-low);
+      border: 1.5px solid var(--outline-variant);
+    }
+
+    .m3-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .m3-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .m3-switch-slider {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: var(--surface-container-high);
+      border: 1.5px solid var(--outline);
+      border-radius: 9999px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .m3-switch-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3.5px;
+      background: var(--on-surface-variant);
+      border-radius: 50%;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .m3-switch input:checked + .m3-switch-slider {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .m3-switch input:checked + .m3-switch-slider::before {
+      transform: translateX(22px);
+      background: var(--on-primary);
+    }
+
+    /* Material 3 Mobile Bottom Navigation Bar */
+    .m3-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .tabs-bar-inner {
+        display: none;
+      }
+
+      .main-content {
+        padding-bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .snackbar-host {
+        bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .m3-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: var(--surface-translucent);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-top: 1.5px solid var(--outline-variant);
+        padding: 6px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+        box-shadow: 0 -2px 12px rgba(15, 23, 42, 0.08);
+      }
+
+      .m3-bottom-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        border: none;
+        background: transparent;
+        color: var(--on-surface-variant);
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 4px 2px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .m3-bottom-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 54px;
+        height: 30px;
+        border-radius: var(--radius-pill);
+        transition: background 0.16s ease, color 0.16s ease;
+      }
+
+      .m3-bottom-tab.active {
+        color: var(--on-surface);
+        font-weight: 700;
+      }
+
+      .m3-bottom-tab.active .m3-bottom-pill {
+        background: var(--primary-container);
+        color: var(--on-primary-container);
+      }
+    }
+
+    @media print {
+      .m3-bottom-nav,
+      .bp-sig-action-bar,
+      .no-print {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -3055,17 +3515,38 @@
         <form id="daily-task-form">
           <div class="form-grid">
             <div class="field full">
-              <label for="input-task" id="label-input-task">Task / Activity Description</label>
+              <div class="label-row-between">
+                <label for="input-task" id="label-input-task">Task / Activity Description</label>
+                <span class="draft-badge" id="draft-status-badge">Draft saved</span>
+              </div>
+              <div class="snippets-bar" id="snippets-bar" aria-label="Quick-insert snippets"></div>
+              <div class="snippet-inline-adder" id="snippet-inline-adder">
+                <input type="text" id="input-new-snippet" class="m3-input"
+                  placeholder="Type a frequent duty (e.g. Daily server health check)..." maxlength="140">
+                <button type="button" class="btn btn-filled btn-sm" id="btn-save-snippet">Save</button>
+                <button type="button" class="btn btn-outlined-neutral btn-sm" id="btn-cancel-snippet">Cancel</button>
+              </div>
               <div class="quill-wrapper" id="quill-task-wrap">
                 <div id="input-task" class="quill-editor-host" aria-labelledby="label-input-task"
                   data-placeholder="Describe the task performed, or use the toolbar for bold, italic, underline, strikethrough, or lists..."></div>
               </div>
             </div>
             <div class="field full">
-              <label for="input-remarks" id="label-input-remarks">Skills Learned / Remarks (optional)</label>
-              <div class="quill-wrapper" id="quill-remarks-wrap">
-                <div id="input-remarks" class="quill-editor-host" aria-labelledby="label-input-remarks"
-                  data-placeholder="Add skills learned or remarks (optional)..."></div>
+              <div class="remarks-toggle-row">
+                <button type="button" class="remarks-toggle-btn" id="btn-toggle-remarks" aria-expanded="false"
+                  aria-controls="remarks-collapse-wrap">
+                  <svg class="icon icon-xs" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                  </svg>
+                  <span id="remarks-toggle-label">Add skills learned / remarks (optional)</span>
+                </button>
+              </div>
+              <div id="remarks-collapse-wrap" style="display: none; margin-top: 6px;">
+                <label for="input-remarks" id="label-input-remarks" style="display: block; margin-bottom: 7px;">Skills Learned / Remarks (optional)</label>
+                <div class="quill-wrapper" id="quill-remarks-wrap">
+                  <div id="input-remarks" class="quill-editor-host" aria-labelledby="label-input-remarks"
+                    data-placeholder="Add skills learned or remarks (optional)..."></div>
+                </div>
               </div>
             </div>
             <div class="field full">
@@ -3122,6 +3603,24 @@
           </div>
         </div>
         <div id="daily-tasks-container" class="task-list"></div>
+      </div>
+
+      <!-- Inline Weekly Summary Card (shown in Entire Week mode) -->
+      <div class="m3-card" id="weekly-inline-summary-card" style="display: none;">
+        <div class="card-header" style="margin-bottom: 12px;">
+          <div>
+            <h2 class="card-title" id="weekly-inline-summary-title">Week 1 Summary &amp; Key Takeaways</h2>
+            <p class="card-subtitle">Printed below this week's entries in Compile &amp; Export.</p>
+          </div>
+          <span class="save-indicator" id="weekly-inline-summary-saved">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+            Saved
+          </span>
+        </div>
+        <textarea id="input-inline-week-summary" class="m3-textarea"
+          placeholder="Summarize key achievements, challenges, or lessons learned this week..."></textarea>
       </div>
     </section>
 
@@ -3219,6 +3718,8 @@
             </button>
           </div>
         </div>
+
+        <div id="export-readiness-bar" class="readiness-bar ready" role="status"></div>
       </div>
 
       <div class="preview-desk">
@@ -3498,6 +3999,43 @@
           </div>
         </div>
 
+        <!-- DAILY REMINDER NOTIFICATIONS CARD -->
+        <div class="m3-card" id="reminder-card">
+          <div class="card-header">
+            <div class="card-title-row">
+              <div class="card-icon" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="card-title">Weekday Logging Reminder</h2>
+                <p class="card-subtitle">Get a gentle Mon–Fri notification on Android so you log tasks while they are fresh.</p>
+              </div>
+            </div>
+            <span class="chip" id="reminder-status-chip">Off</span>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div style="font-weight: 700; color: var(--on-surface); font-size: 0.94rem;">Enable Mon–Fri Reminder</div>
+              <div style="font-size: 0.82rem; color: var(--on-surface-variant);" id="reminder-helper-text">Schedules a daily local notification on weekdays.</div>
+            </div>
+            <label class="m3-switch" aria-label="Enable weekday reminder">
+              <input type="checkbox" id="toggle-reminder-enabled">
+              <span class="m3-switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="form-grid" style="margin-top: 14px;">
+            <div class="field">
+              <label for="input-reminder-time">Reminder Time</label>
+              <input type="time" id="input-reminder-time" class="m3-input" value="16:30">
+            </div>
+          </div>
+        </div>
+
         <!-- CARD 5: CLOUD SYNC (SUPABASE) -->
         <div class="m3-card" id="cloud-sync-card">
           <div class="card-header">
@@ -3736,6 +4274,60 @@ create policy "Users can update own logbook"
   <!-- Material 3 Snackbar Host -->
   <div id="snackbar-host" class="snackbar-host" aria-live="polite"></div>
 
+  <!-- Material 3 Mobile Bottom Navigation Bar -->
+  <nav class="m3-bottom-nav" role="tablist" aria-label="Mobile navigation">
+    <button type="button" class="m3-bottom-tab active" role="tab" aria-selected="true" data-tab="daily">
+      <span class="m3-bottom-pill">
+        <svg class="icon icon-sm" viewBox="0 0 24 24">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2zM7 11h5v5H7z" />
+        </svg>
+      </span>
+      <span>Log</span>
+    </button>
+    <button type="button" class="m3-bottom-tab" role="tab" aria-selected="false" data-tab="history">
+      <span class="m3-bottom-pill">
+        <svg class="icon icon-sm" viewBox="0 0 24 24">
+          <path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
+        </svg>
+      </span>
+      <span>History</span>
+    </button>
+    <button type="button" class="m3-bottom-tab" role="tab" aria-selected="false" data-tab="compile">
+      <span class="m3-bottom-pill">
+        <svg class="icon icon-sm" viewBox="0 0 24 24">
+          <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+        </svg>
+      </span>
+      <span>Compile</span>
+    </button>
+    <button type="button" class="m3-bottom-tab" role="tab" aria-selected="false" data-tab="details">
+      <span class="m3-bottom-pill">
+        <svg class="icon icon-sm" viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
+      </span>
+      <span>Details</span>
+    </button>
+  </nav>
+
+  <!-- Supervisor Signature Pad Modal -->
+  <div id="sig-dialog-scrim" class="dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="sig-dialog-title">
+    <div class="m3-dialog" style="max-width: 480px;">
+      <h3 class="m3-dialog-title" id="sig-dialog-title">Supervisor Signature</h3>
+      <p class="m3-dialog-body" style="margin-bottom: 14px;" id="sig-dialog-sub">Draw your signature inside the box below. It will appear on the compiled PDF and Word (.docx) sheet.</p>
+      <div class="sig-pad-wrap">
+        <canvas id="sig-canvas" class="sig-canvas"></canvas>
+      </div>
+      <div class="m3-dialog-actions" style="justify-content: space-between;">
+        <button type="button" class="btn btn-outlined-neutral btn-sm" id="btn-sig-clear">Clear</button>
+        <div class="button-row">
+          <button type="button" class="btn btn-text" id="btn-sig-cancel">Cancel</button>
+          <button type="button" class="btn btn-filled" id="btn-sig-save">Save Signature</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Material 3 Confirmation Dialog -->
   <div id="m3-dialog-scrim" class="dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
     <div class="m3-dialog">
@@ -3765,6 +4357,8 @@ create policy "Users can update own logbook"
       const ENTRY_MODE_KEY = 'attachment_logbook_entry_mode_pref';
       const LAYOUT_STYLE_KEY = 'attachment_logbook_layout_style_pref';
       const SUPABASE_CFG_KEY = 'attachment_logbook_supabase_cfg_v1';
+      const DRAFT_KEY = 'attachment_logbook_draft_v1';
+      const REMINDER_KEY = 'attachment_logbook_reminder_v1';
       const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const MONTHS_FULL = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
@@ -3790,6 +4384,8 @@ create policy "Users can update own logbook"
           weeklyEntries: {},
           weekEndDates: {},
           weeklySummaries: {},
+          snippets: [],
+          signatures: {},
           updatedAt: null
         };
       }
@@ -3823,6 +4419,12 @@ create policy "Users can update own logbook"
       let isAdminUnlocked = false;
       let quillTask = null;
       let quillRemarks = null;
+      let remarksExpanded = false;
+      let snackbarTimer = null;
+      let draftSaveTimer = null;
+      let activeSigKey = null;
+      let sigDrawing = false;
+      let sigHasInk = false;
 
       function injectPwaManifest() {
         try {
@@ -4332,6 +4934,22 @@ create policy "Users can update own logbook"
           });
         }
 
+        if (Array.isArray(raw.snippets)) {
+          out.snippets = raw.snippets
+            .map(s => String(s || '').trim())
+            .filter(Boolean)
+            .slice(0, 20);
+        }
+
+        const srcSigs = raw.signatures || {};
+        if (srcSigs && typeof srcSigs === 'object') {
+          Object.keys(srcSigs).forEach(k => {
+            if (typeof srcSigs[k] === 'string' && srcSigs[k].startsWith('data:image/')) {
+              out.signatures[String(k)] = srcSigs[k];
+            }
+          });
+        }
+
         out.updatedAt = typeof raw.updatedAt === 'string' ? raw.updatedAt : null;
         return out;
       }
@@ -4726,21 +5344,39 @@ create policy "Users can update own logbook"
         }
       }
 
-      function showSnackbar(message) {
+      function showSnackbar(message, actionOpts) {
         const host = document.getElementById('snackbar-host');
         host.innerHTML = '';
+        if (snackbarTimer) clearTimeout(snackbarTimer);
+
         const bar = document.createElement('div');
         bar.className = 'm3-snackbar';
-        bar.textContent = message;
-        host.appendChild(bar);
+        const msgSpan = document.createElement('span');
+        msgSpan.textContent = message;
+        bar.appendChild(msgSpan);
 
-        setTimeout(() => {
+        if (actionOpts && actionOpts.label && typeof actionOpts.onAction === 'function') {
+          const actBtn = document.createElement('button');
+          actBtn.type = 'button';
+          actBtn.className = 'snackbar-action-btn';
+          actBtn.textContent = actionOpts.label;
+          actBtn.addEventListener('click', () => {
+            if (snackbarTimer) clearTimeout(snackbarTimer);
+            if (bar.parentNode) bar.remove();
+            actionOpts.onAction();
+          });
+          bar.appendChild(actBtn);
+        }
+
+        host.appendChild(bar);
+        const duration = (actionOpts && actionOpts.duration) || (actionOpts ? 5200 : 2800);
+        snackbarTimer = setTimeout(() => {
           bar.style.opacity = '0';
           bar.style.transition = 'opacity 0.2s ease';
           setTimeout(() => {
             if (bar.parentNode) bar.remove();
           }, 220);
-        }, 2800);
+        }, duration);
       }
 
       function confirmDialog(title, message, confirmLabel = 'Confirm', isDanger = false) {
@@ -5340,6 +5976,7 @@ create policy "Users can update own logbook"
           quillTask.on('text-change', () => {
             const wrap = document.getElementById('quill-task-wrap');
             if (wrap) wrap.classList.remove('is-invalid');
+            scheduleDraftSave();
           });
         }
 
@@ -5368,7 +6005,9 @@ create policy "Users can update own logbook"
             }
           });
           if (pendingRem) setRichEditorContent('remarks', pendingRem);
+          quillRemarks.on('text-change', () => scheduleDraftSave());
         }
+        restoreSavedDraftIfAny();
       }
 
       window.__onQuillSdkLoaded = function () {
@@ -5416,8 +6055,452 @@ create policy "Users can update own logbook"
         if (host) host.focus();
       }
 
+      /* ---------- Collapsible Remarks ---------- */
+      function setRemarksExpanded(expanded, shouldFocus = false) {
+        remarksExpanded = Boolean(expanded);
+        const wrap = document.getElementById('remarks-collapse-wrap');
+        const btn = document.getElementById('btn-toggle-remarks');
+        const label = document.getElementById('remarks-toggle-label');
+        if (wrap) wrap.style.display = remarksExpanded ? 'block' : 'none';
+        if (btn) btn.setAttribute('aria-expanded', String(remarksExpanded));
+        if (label) {
+          label.textContent = remarksExpanded
+            ? 'Hide skills learned / remarks'
+            : 'Add skills learned / remarks (optional)';
+        }
+        if (remarksExpanded && shouldFocus) {
+          setTimeout(() => focusRichEditor('remarks'), 20);
+        }
+      }
+
+      /* ---------- Quick-Insert Snippets ---------- */
+      function renderSnippetsBar() {
+        const bar = document.getElementById('snippets-bar');
+        if (!bar) return;
+        const list = Array.isArray(state.snippets) ? state.snippets : [];
+        const chipsHtml = list.map((txt, idx) => `
+          <span class="snippet-chip" data-snippet-insert="${idx}" title="Insert: ${escapeHtml(txt)}">
+            <span class="snippet-chip-text">${escapeHtml(txt)}</span>
+            <button type="button" class="snippet-del-btn" data-snippet-del="${idx}" title="Remove snippet" aria-label="Remove snippet">&times;</button>
+          </span>
+        `).join('');
+        bar.innerHTML = chipsHtml + `
+          <button type="button" class="snippet-add-btn" id="btn-open-snippet-adder" title="Save a reusable task snippet">
+            + Quick snippet
+          </button>
+        `;
+      }
+
+      function insertSnippetIntoTask(text) {
+        const clean = String(text || '').trim();
+        if (!clean) return;
+        if (quillTask) {
+          const curText = quillTask.getText().trim();
+          const sel = quillTask.getSelection();
+          const idx = sel ? sel.index : Math.max(0, quillTask.getLength() - 1);
+          const prefix = (!sel && curText.length > 0) ? '\n' : '';
+          quillTask.insertText(idx, prefix + clean, 'user');
+          quillTask.setSelection(idx + prefix.length + clean.length, 0);
+          quillTask.focus();
+        } else {
+          const host = document.getElementById('input-task');
+          if (host) {
+            const existing = getRichEditorContent('task');
+            setRichEditorContent('task', existing ? `${existing}<p>${escapeHtml(clean)}</p>` : `<p>${escapeHtml(clean)}</p>`);
+            host.focus();
+          }
+        }
+        scheduleDraftSave();
+      }
+
+      /* ---------- Auto-Saved Form Drafts ---------- */
+      function updateDraftBadge(visible) {
+        const badge = document.getElementById('draft-status-badge');
+        if (badge) badge.classList.toggle('visible', Boolean(visible));
+      }
+
+      function scheduleDraftSave() {
+        if (editingTaskId) return;
+        clearTimeout(draftSaveTimer);
+        draftSaveTimer = setTimeout(() => {
+          try {
+            const task = getRichEditorContent('task');
+            const remarks = getRichEditorContent('remarks');
+            if (!task && !remarks) {
+              localStorage.removeItem(DRAFT_KEY);
+              updateDraftBadge(false);
+              return;
+            }
+            localStorage.setItem(DRAFT_KEY, JSON.stringify({
+              task,
+              remarks,
+              status: selectedTaskStatus,
+              remarksExpanded: Boolean(remarks || remarksExpanded),
+              savedAt: Date.now()
+            }));
+            updateDraftBadge(true);
+          } catch (e) { }
+        }, 350);
+      }
+
+      function clearSavedDraft() {
+        clearTimeout(draftSaveTimer);
+        try { localStorage.removeItem(DRAFT_KEY); } catch (e) { }
+        updateDraftBadge(false);
+      }
+
+      function restoreSavedDraftIfAny() {
+        if (editingTaskId) return;
+        try {
+          const raw = localStorage.getItem(DRAFT_KEY);
+          if (!raw) return;
+          const draft = JSON.parse(raw);
+          if (!draft || (!draft.task && !draft.remarks)) return;
+          if (draft.task) setRichEditorContent('task', draft.task);
+          if (draft.remarks) {
+            setRichEditorContent('remarks', draft.remarks);
+            setRemarksExpanded(true, false);
+          }
+          if (draft.status) setTaskStatusUi(draft.status);
+          updateDraftBadge(true);
+        } catch (e) { }
+      }
+
+      /* ---------- One-Tap Status Toggle & Carry Over ---------- */
+      function toggleDailyTaskStatus(dateIso, taskId) {
+        const list = state.entries[dateIso] || [];
+        const item = list.find(t => t.id === taskId);
+        if (!item) return;
+        item.status = item.status === 'in-progress' ? 'completed' : 'in-progress';
+        saveState();
+        renderAll();
+        showSnackbar(item.status === 'completed' ? 'Marked as Completed' : 'Marked as In Progress');
+      }
+
+      function toggleWeeklyTaskStatus(weekNum, taskId) {
+        const list = state.weeklyEntries[String(weekNum)] || [];
+        const item = list.find(t => t.id === taskId);
+        if (!item) return;
+        item.status = item.status === 'in-progress' ? 'completed' : 'in-progress';
+        saveState();
+        renderAll();
+        showSnackbar(item.status === 'completed' ? 'Marked as Completed' : 'Marked as In Progress');
+      }
+
+      function carryOverTaskToToday(sourceDateIso, taskId) {
+        const today = getTodayIso();
+        const list = state.entries[sourceDateIso] || [];
+        const found = list.find(t => t.id === taskId);
+        if (!found) return;
+        if (!state.entries[today]) state.entries[today] = [];
+        state.entries[today].push({
+          id: generateId(),
+          task: found.task,
+          remarks: found.remarks || '',
+          status: 'in-progress'
+        });
+        saveState();
+        renderAll();
+        showSnackbar('Carried over to today', {
+          label: 'View Today',
+          duration: 4500,
+          onAction: () => {
+            entryMode = 'daily';
+            selectedDateIso = today;
+            switchTab('daily');
+            renderDailyTab();
+          }
+        });
+      }
+
+      /* ---------- Export Readiness Check ---------- */
+      function renderExportReadinessBar() {
+        const bar = document.getElementById('export-readiness-bar');
+        if (!bar) return;
+        const d = state.details;
+        const missing = [];
+        if (!d.fullName.trim()) missing.push('Full Name');
+        if (!d.studentId.trim()) missing.push('Student ID');
+        if (!d.institutionName.trim()) missing.push('Institution');
+        if (!d.companyName.trim()) missing.push('Company');
+        if (!d.supervisorName.trim()) missing.push('Supervisor Name');
+        if (!d.startDate || !d.endDate) missing.push('Internship Period');
+
+        if (missing.length === 0) {
+          bar.className = 'readiness-bar ready';
+          bar.innerHTML = `
+            <div class="readiness-bar-left">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
+              <span>Ready to export — all cover page details are complete.</span>
+            </div>
+          `;
+        } else {
+          bar.className = 'readiness-bar warn';
+          bar.innerHTML = `
+            <div class="readiness-bar-left">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" /></svg>
+              <span>Missing cover details: ${escapeHtml(missing.join(', '))}</span>
+            </div>
+            <button type="button" class="btn btn-outlined-neutral btn-sm" id="btn-readiness-fix">Complete in Details</button>
+          `;
+          const fixBtn = document.getElementById('btn-readiness-fix');
+          if (fixBtn) fixBtn.addEventListener('click', () => switchTab('details'));
+        }
+      }
+
+      /* ---------- On-Screen Supervisor Signature Pad ---------- */
+      function initSignaturePadCanvas() {
+        const canvas = document.getElementById('sig-canvas');
+        if (!canvas || canvas.dataset.sigBound === '1') return;
+        canvas.dataset.sigBound = '1';
+
+        function getPos(e) {
+          const rect = canvas.getBoundingClientRect();
+          const clientX = e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches && e.touches[0] ? e.touches[0].clientY : e.clientY;
+          return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function startDraw(e) {
+          e.preventDefault();
+          sigDrawing = true;
+          sigHasInk = true;
+          const ctx = canvas.getContext('2d');
+          const pos = getPos(e);
+          ctx.beginPath();
+          ctx.moveTo(pos.x, pos.y);
+        }
+
+        function moveDraw(e) {
+          if (!sigDrawing) return;
+          e.preventDefault();
+          const ctx = canvas.getContext('2d');
+          const pos = getPos(e);
+          ctx.lineTo(pos.x, pos.y);
+          ctx.stroke();
+        }
+
+        function endDraw() {
+          sigDrawing = false;
+        }
+
+        canvas.addEventListener('pointerdown', startDraw);
+        canvas.addEventListener('pointermove', moveDraw);
+        window.addEventListener('pointerup', endDraw);
+      }
+
+      function clearSignatureCanvas() {
+        const canvas = document.getElementById('sig-canvas');
+        if (!canvas) return;
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(300, Math.round(rect.width * dpr));
+        canvas.height = Math.max(150, Math.round(rect.height * dpr));
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 2.4;
+        ctx.strokeStyle = '#111111';
+        sigHasInk = false;
+      }
+
+      function openSignaturePad(sigKey, titleLabel) {
+        activeSigKey = sigKey;
+        document.getElementById('sig-dialog-title').textContent = titleLabel || 'Supervisor Signature';
+        document.getElementById('sig-dialog-scrim').classList.add('open');
+        initSignaturePadCanvas();
+        setTimeout(() => clearSignatureCanvas(), 20);
+      }
+
+      function closeSignaturePad() {
+        document.getElementById('sig-dialog-scrim').classList.remove('open');
+        activeSigKey = null;
+        sigDrawing = false;
+      }
+
+      function saveCurrentSignature() {
+        if (!activeSigKey) return;
+        if (!sigHasInk) {
+          showSnackbar('Draw a signature first, or tap Cancel');
+          return;
+        }
+        const canvas = document.getElementById('sig-canvas');
+        try {
+          const dataUrl = canvas.toDataURL('image/png');
+          state.signatures[activeSigKey] = dataUrl;
+          saveState();
+          closeSignaturePad();
+          renderCompileTab();
+          showSnackbar('Supervisor signature saved');
+        } catch (err) {
+          console.error(err);
+          showSnackbar('Could not save signature');
+        }
+      }
+
+      function clearSavedSignature(sigKey) {
+        if (!state.signatures || !state.signatures[sigKey]) return;
+        const prev = state.signatures[sigKey];
+        delete state.signatures[sigKey];
+        saveState();
+        renderCompileTab();
+        showSnackbar('Signature cleared', {
+          label: 'Undo',
+          onAction: () => {
+            state.signatures[sigKey] = prev;
+            saveState();
+            renderCompileTab();
+          }
+        });
+      }
+
+      /* ---------- Weekday Reminder Notifications (Capacitor LocalNotifications) ---------- */
+      function getReminderPref() {
+        try {
+          const raw = localStorage.getItem(REMINDER_KEY);
+          if (raw) {
+            const p = JSON.parse(raw);
+            return {
+              enabled: Boolean(p.enabled),
+              time: typeof p.time === 'string' && /^\d{2}:\d{2}$/.test(p.time) ? p.time : '16:30'
+            };
+          }
+        } catch (e) { }
+        return { enabled: false, time: '16:30' };
+      }
+
+      function renderReminderCard() {
+        const pref = getReminderPref();
+        const toggle = document.getElementById('toggle-reminder-enabled');
+        const timeEl = document.getElementById('input-reminder-time');
+        const chip = document.getElementById('reminder-status-chip');
+        const helper = document.getElementById('reminder-helper-text');
+        if (!toggle || !timeEl) return;
+
+        toggle.checked = pref.enabled;
+        timeEl.value = pref.time;
+        if (chip) {
+          chip.classList.remove('chip-completed');
+          if (pref.enabled) {
+            chip.classList.add('chip-completed');
+            chip.textContent = `Mon–Fri · ${pref.time}`;
+          } else {
+            chip.textContent = 'Off';
+          }
+        }
+        if (helper) {
+          helper.textContent = isNativeAndroidApp()
+            ? 'Schedules a local Android notification every weekday at your chosen time.'
+            : 'Preference saved. Push reminders activate automatically inside the Android APK.';
+        }
+      }
+
+      async function syncWeekdayNotifications(enabled, timeStr, showToast = true) {
+        const pref = { enabled: Boolean(enabled), time: timeStr || '16:30' };
+        try { localStorage.setItem(REMINDER_KEY, JSON.stringify(pref)); } catch (e) { }
+        renderReminderCard();
+
+        const plugins = window.Capacitor && window.Capacitor.Plugins;
+        const LocalNotifications = plugins && plugins.LocalNotifications;
+        if (!isNativeAndroidApp() || !LocalNotifications) {
+          if (showToast) {
+            showSnackbar(pref.enabled
+              ? `Reminder saved for Mon–Fri at ${pref.time} (active in Android APK)`
+              : 'Weekday reminder turned off');
+          }
+          return;
+        }
+
+        try {
+          const reminderIds = [101, 102, 103, 104, 105].map(id => ({ id }));
+          await LocalNotifications.cancel({ notifications: reminderIds }).catch(() => { });
+
+          if (!pref.enabled) {
+            if (showToast) showSnackbar('Weekday reminder turned off');
+            return;
+          }
+
+          const perm = await LocalNotifications.requestPermissions();
+          if (perm && perm.display !== 'granted') {
+            try { localStorage.setItem(REMINDER_KEY, JSON.stringify({ enabled: false, time: pref.time })); } catch (e) { }
+            renderReminderCard();
+            showSnackbar('Notification permission denied in Android settings');
+            return;
+          }
+
+          const [hh, mm] = pref.time.split(':').map(Number);
+          const hour = Number.isFinite(hh) ? hh : 16;
+          const minute = Number.isFinite(mm) ? mm : 30;
+          // Capacitor weekday: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri
+          const weekdays = [2, 3, 4, 5, 6];
+          const notifications = weekdays.map((wd, idx) => ({
+            id: 101 + idx,
+            title: 'Attachment Log Book',
+            body: 'Take 2 minutes to log today’s tasks while they are fresh.',
+            schedule: { on: { weekday: wd, hour, minute }, repeats: true, allowWhileIdle: true }
+          }));
+
+          await LocalNotifications.schedule({ notifications });
+          if (showToast) showSnackbar(`Weekday reminder set for ${pref.time}`);
+        } catch (err) {
+          console.error('Reminder schedule error:', err);
+          if (showToast) showSnackbar('Could not schedule Android reminder');
+        }
+      }
+
+      /* ---------- Native Android Back Button Handling ---------- */
+      function initNativeAndroidBackButton() {
+        const plugins = window.Capacitor && window.Capacitor.Plugins;
+        if (!isNativeAndroidApp() || !plugins || !plugins.App) return;
+        try {
+          plugins.App.addListener('backButton', () => {
+            const sigModal = document.getElementById('sig-dialog-scrim');
+            if (sigModal && sigModal.classList.contains('open')) {
+              closeSignaturePad();
+              return;
+            }
+            if (dialogResolver) {
+              closeDialog(false);
+              return;
+            }
+            if (editingTaskId) {
+              clearTaskForm();
+              renderDailyTab();
+              showSnackbar('Edit cancelled');
+              return;
+            }
+            if (activeTab === 'settings') {
+              switchTab(lastMainTab || 'daily');
+              return;
+            }
+            if (activeTab !== 'daily') {
+              switchTab('daily');
+              return;
+            }
+            plugins.App.exitApp();
+          });
+        } catch (err) {
+          console.warn('Android backButton listener skipped:', err);
+        }
+      }
+
       function renderDailyTab() {
         const isWeekly = entryMode === 'weekly';
+        renderSnippetsBar();
+        const inlineSumCard = document.getElementById('weekly-inline-summary-card');
+        if (inlineSumCard) {
+          inlineSumCard.style.display = isWeekly ? 'block' : 'none';
+          if (isWeekly) {
+            document.getElementById('weekly-inline-summary-title').textContent = `Week ${selectedWeekNum} Summary & Key Takeaways`;
+            const sumTa = document.getElementById('input-inline-week-summary');
+            if (sumTa && document.activeElement !== sumTa) {
+              sumTa.value = state.weeklySummaries[String(selectedWeekNum)] || '';
+              autoResizeWordTextbox(sumTa);
+            }
+          }
+        }
 
         document.querySelectorAll('[data-entry-mode]').forEach(btn => {
           btn.classList.toggle('active', btn.getAttribute('data-entry-mode') === entryMode);
@@ -5489,8 +6572,8 @@ create policy "Users can update own logbook"
           container.innerHTML = visibleTasks.map(t => {
             const isEditing = editingTaskId === t.id;
             const statusChip = t.status === 'in-progress'
-              ? `<span class="chip chip-in-progress">In Progress</span>`
-              : `<span class="chip chip-completed">Completed</span>`;
+              ? `<button type="button" class="chip chip-in-progress chip-interactive" data-action="toggle-weekly-status" data-id="${escapeHtml(t.id)}" title="Tap to mark Completed">In Progress</button>`
+              : `<button type="button" class="chip chip-completed chip-interactive" data-action="toggle-weekly-status" data-id="${escapeHtml(t.id)}" title="Tap to mark In Progress">Completed</button>`;
 
             return `
               <div class="task-card ${isEditing ? 'is-editing' : ''}">
@@ -5569,8 +6652,11 @@ create policy "Users can update own logbook"
         container.innerHTML = visibleTasks.map(t => {
           const isEditing = editingTaskId === t.id;
           const statusChip = t.status === 'in-progress'
-            ? `<span class="chip chip-in-progress">In Progress</span>`
-            : `<span class="chip chip-completed">Completed</span>`;
+            ? `<button type="button" class="chip chip-in-progress chip-interactive" data-action="toggle-daily-status" data-id="${escapeHtml(t.id)}" title="Tap to mark Completed">In Progress</button>`
+            : `<button type="button" class="chip chip-completed chip-interactive" data-action="toggle-daily-status" data-id="${escapeHtml(t.id)}" title="Tap to mark In Progress">Completed</button>`;
+          const carryOverBtn = (t.status === 'in-progress' && selectedDateIso !== getTodayIso())
+            ? `<button type="button" class="btn-carry-over" data-action="carry-over-daily" data-id="${escapeHtml(t.id)}" title="Copy this unfinished task to today">&rarr; Carry to Today</button>`
+            : '';
 
           return `
             <div class="task-card ${isEditing ? 'is-editing' : ''}">
@@ -5578,6 +6664,7 @@ create policy "Users can update own logbook"
                 ${renderTaskBodyHtml(t.task)}
                 <div class="task-meta-row">
                   ${statusChip}
+                  ${carryOverBtn}
                   ${renderRemarksHtml(t.remarks)}
                 </div>
               </div>
@@ -5604,6 +6691,8 @@ create policy "Users can update own logbook"
         document.getElementById('task-form-heading').textContent = entryMode === 'weekly'
           ? `Log a Weekly Activity (Week ${selectedWeekNum})`
           : 'Log a Daily Activity';
+        setRemarksExpanded(false, false);
+        clearSavedDraft();
         document.getElementById('btn-submit-label').textContent = 'Add task';
         document.getElementById('btn-cancel-edit').style.display = 'none';
       }
@@ -5621,6 +6710,7 @@ create policy "Users can update own logbook"
 
         setRichEditorContent('task', found.task);
         setRichEditorContent('remarks', found.remarks || '');
+        setRemarksExpanded(Boolean(found.remarks && richHtmlToPlainText(found.remarks)), false);
         const _tw = document.getElementById('quill-task-wrap');
         if (_tw) _tw.classList.remove('is-invalid');
         setTaskStatusUi(found.status || 'completed');
@@ -5646,6 +6736,7 @@ create policy "Users can update own logbook"
 
         setRichEditorContent('task', found.task);
         setRichEditorContent('remarks', found.remarks || '');
+        setRemarksExpanded(Boolean(found.remarks && richHtmlToPlainText(found.remarks)), false);
         const _tw = document.getElementById('quill-task-wrap');
         if (_tw) _tw.classList.remove('is-invalid');
         setTaskStatusUi(found.status || 'completed');
@@ -5657,16 +6748,13 @@ create policy "Users can update own logbook"
         focusRichEditor('task');
       }
 
-      async function removeTask(dateIso, taskId) {
-        const ok = await confirmDialog(
-          'Delete task?',
-          'This task will be permanently removed from your log book.',
-          'Delete',
-          true
-        );
-        if (!ok) return;
+      function removeTask(dateIso, taskId) {
+        const origList = state.entries[dateIso] || [];
+        const removedIdx = origList.findIndex(t => t.id === taskId);
+        if (removedIdx === -1) return;
+        const removedItem = Object.assign({}, origList[removedIdx]);
 
-        const nextList = (state.entries[dateIso] || []).filter(t => t.id !== taskId);
+        const nextList = origList.filter(t => t.id !== taskId);
         if (nextList.length > 0) {
           state.entries[dateIso] = nextList;
         } else {
@@ -5677,20 +6765,28 @@ create policy "Users can update own logbook"
 
         saveState();
         renderAll();
-        showSnackbar('Task deleted');
+        showSnackbar('Task deleted', {
+          label: 'Undo',
+          duration: 5500,
+          onAction: () => {
+            if (!state.entries[dateIso]) state.entries[dateIso] = [];
+            const insertAt = Math.min(removedIdx, state.entries[dateIso].length);
+            state.entries[dateIso].splice(insertAt, 0, removedItem);
+            saveState();
+            renderAll();
+            showSnackbar('Task restored');
+          }
+        });
       }
 
-      async function removeWeeklyTask(weekNum, taskId) {
-        const ok = await confirmDialog(
-          'Delete weekly task?',
-          'This weekly task will be permanently removed from your log book.',
-          'Delete',
-          true
-        );
-        if (!ok) return;
-
+      function removeWeeklyTask(weekNum, taskId) {
         const wkKey = String(weekNum);
-        const nextList = (state.weeklyEntries[wkKey] || []).filter(t => t.id !== taskId);
+        const origList = state.weeklyEntries[wkKey] || [];
+        const removedIdx = origList.findIndex(t => t.id === taskId);
+        if (removedIdx === -1) return;
+        const removedItem = Object.assign({}, origList[removedIdx]);
+
+        const nextList = origList.filter(t => t.id !== taskId);
         if (nextList.length > 0) {
           state.weeklyEntries[wkKey] = nextList;
         } else {
@@ -5701,7 +6797,18 @@ create policy "Users can update own logbook"
 
         saveState();
         renderAll();
-        showSnackbar('Weekly task deleted');
+        showSnackbar('Weekly task deleted', {
+          label: 'Undo',
+          duration: 5500,
+          onAction: () => {
+            if (!state.weeklyEntries[wkKey]) state.weeklyEntries[wkKey] = [];
+            const insertAt = Math.min(removedIdx, state.weeklyEntries[wkKey].length);
+            state.weeklyEntries[wkKey].splice(insertAt, 0, removedItem);
+            saveState();
+            renderAll();
+            showSnackbar('Weekly task restored');
+          }
+        });
       }
 
       function handleTaskSubmit(e) {
@@ -5818,8 +6925,8 @@ create policy "Users can update own logbook"
               </div>
               ${wk.weeklyTasks.map(t => {
                 const statusBadge = t.status === 'in-progress'
-                  ? `<span class="chip chip-in-progress">In Progress</span>`
-                  : `<span class="chip chip-completed">Completed</span>`;
+                  ? `<button type="button" class="chip chip-in-progress chip-interactive" data-action="toggle-history-weekly-status" data-week="${wk.weekNum}" data-id="${escapeHtml(t.id)}" title="Tap to mark Completed">In Progress</button>`
+                  : `<button type="button" class="chip chip-completed chip-interactive" data-action="toggle-history-weekly-status" data-week="${wk.weekNum}" data-id="${escapeHtml(t.id)}" title="Tap to mark In Progress">Completed</button>`;
                 return `
                   <div class="history-task-item">
                     <div class="task-main">
@@ -5847,8 +6954,11 @@ create policy "Users can update own logbook"
           const daysHtml = wk.days.map(day => {
             const tasksHtml = day.tasks.map(t => {
               const statusBadge = t.status === 'in-progress'
-                ? `<span class="chip chip-in-progress">In Progress</span>`
-                : `<span class="chip chip-completed">Completed</span>`;
+                ? `<button type="button" class="chip chip-in-progress chip-interactive" data-action="toggle-history-status" data-date="${day.date}" data-id="${escapeHtml(t.id)}" title="Tap to mark Completed">In Progress</button>`
+                : `<button type="button" class="chip chip-completed chip-interactive" data-action="toggle-history-status" data-date="${day.date}" data-id="${escapeHtml(t.id)}" title="Tap to mark In Progress">Completed</button>`;
+              const carryBtn = (t.status === 'in-progress' && day.date !== getTodayIso())
+                ? `<button type="button" class="btn-carry-over" data-action="carry-over-history" data-date="${day.date}" data-id="${escapeHtml(t.id)}" title="Copy this unfinished task to today">&rarr; Carry to Today</button>`
+                : '';
 
               return `
                 <div class="history-task-item">
@@ -5856,6 +6966,7 @@ create policy "Users can update own logbook"
                     ${renderTaskBodyHtml(t.task)}
                     <div class="task-meta-row">
                       ${statusBadge}
+                      ${carryBtn}
                       ${renderRemarksHtml(t.remarks)}
                     </div>
                   </div>
@@ -5927,6 +7038,22 @@ create policy "Users can update own logbook"
           monthsMap.get(mKey).weeks.push(wk);
         });
         return Array.from(monthsMap.values()).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
+      }
+
+      function buildSignatureLineHtml(sigKey, titleLabel, minW = 240) {
+        const sigData = state.signatures && state.signatures[sigKey];
+        const inner = sigData
+          ? `<img src="${sigData}" class="bp-sig-img" alt="Supervisor Signature">`
+          : '&nbsp;';
+        const actionBtns = sigData
+          ? `<span class="bp-sig-action-bar no-print">
+               <button type="button" class="bp-sign-btn" data-sig-open="${escapeHtml(sigKey)}" data-sig-title="${escapeHtml(titleLabel)}">Re-sign</button>
+               <button type="button" class="bp-sign-btn bp-sign-clear-btn" data-sig-clear="${escapeHtml(sigKey)}">Clear</button>
+             </span>`
+          : `<span class="bp-sig-action-bar no-print">
+               <button type="button" class="bp-sign-btn" data-sig-open="${escapeHtml(sigKey)}" data-sig-title="${escapeHtml(titleLabel)}">Sign on screen</button>
+             </span>`;
+        return `<span class="bp-sig-underline" style="min-width: ${minW}px;">${inner}</span>${actionBtns}`;
       }
 
       function buildMonthlySheetPageHtml(monthGroup, isLastPage) {
@@ -6007,7 +7134,7 @@ create policy "Users can update own logbook"
                   <td width="45%"><strong>Date:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
                 </tr>
                 <tr>
-                  <td colspan="2"><strong>Signature:</strong> <span class="bp-sig-underline" style="min-width: 240px;">&nbsp;</span></td>
+                  <td colspan="2"><strong>Signature:</strong> ${buildSignatureLineHtml('month:' + monthGroup.monthKey, 'Supervisor Signature — ' + monthGroup.title, 240)}</td>
                 </tr>
               </table>
             </div>
@@ -6160,7 +7287,7 @@ create policy "Users can update own logbook"
                   <td width="45%"><strong>Date:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
                 </tr>
                 <tr>
-                  <td colspan="2"><strong>Signature:</strong> <span class="bp-sig-underline" style="min-width: 240px;">&nbsp;</span></td>
+                  <td colspan="2"><strong>Signature:</strong> ${buildSignatureLineHtml('week:' + wk.weekNum, 'Supervisor Signature — ' + wk.label, 240)}</td>
                 </tr>
               </table>
             </div>
@@ -6280,7 +7407,7 @@ create policy "Users can update own logbook"
                     <td colspan="2"><strong>Contact:</strong> <span class="bp-sig-underline" style="min-width: 240px;">${d.supervisorContact ? escapeHtml(d.supervisorContact) : '&nbsp;'}</span></td>
                   </tr>
                   <tr>
-                    <td width="55%"><strong>Signature:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
+                    <td width="55%"><strong>Signature:</strong> ${buildSignatureLineHtml('final:workplace', 'Workplace Supervisor Final Signature', 165)}</td>
                     <td width="45%"><strong>Date:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
                   </tr>
                 </table>
@@ -6319,7 +7446,7 @@ create policy "Users can update own logbook"
 
                 <table class="bp-sig-table" width="100%" cellspacing="0" cellpadding="6">
                   <tr>
-                    <td width="55%"><strong>Signature:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
+                    <td width="55%"><strong>Signature:</strong> ${buildSignatureLineHtml('final:academic', 'Academic Supervisor Signature', 165)}</td>
                     <td width="45%"><strong>Date:</strong> <span class="bp-sig-underline">&nbsp;</span></td>
                   </tr>
                 </table>
@@ -6337,6 +7464,7 @@ create policy "Users can update own logbook"
 
       function renderCompileTab() {
         syncCompileScopeUi();
+        renderExportReadinessBar();
         document.getElementById('compiled-book-preview').innerHTML = buildCompiledBookHtml();
       }
 
@@ -6639,8 +7767,13 @@ create policy "Users can update own logbook"
         }
         const sigTableRows = sigRows.map(cols => {
           const cells = cols.map(c => {
-            const valText = c.value ? ` ${c.value}        ` : '                              ';
-            const runs = docxRun(`${c.label}: `, { bold: true, size: 20 }) + docxRun(valText, { underline: true, size: 20 });
+            let runs = docxRun(`${c.label}: `, { bold: true, size: 20 });
+            if (c.sigImg && c.sigImg.rId) {
+              runs += docxImageDrawing(c.sigImg.rId, c.sigImg.docPrId, c.sigImg.info, 150, 44);
+            } else {
+              const valText = c.value ? ` ${c.value}        ` : '                              ';
+              runs += docxRun(valText, { underline: true, size: 20 });
+            }
             return docxCell(docxPara(runs, { spaceBefore: 100, spaceAfter: 40 }), {
               width: c.width,
               gridSpan: c.span || 1,
@@ -6654,7 +7787,7 @@ create policy "Users can update own logbook"
         return docxTable(outerRow, [9866], { borderColor: '333333', borderSz: 6 });
       }
 
-      function buildDocxMonthlyPageXml(monthGroup) {
+      function buildDocxMonthlyPageXml(monthGroup, sigMap = {}) {
         const d = state.details;
         const parts = [];
         parts.push(docxPara(docxRun(`RECORD OF WORK DONE ${monthGroup.title}`, { bold: true, size: 26 }), { align: 'center', spaceBefore: 40, spaceAfter: 180 }));
@@ -6709,12 +7842,12 @@ create policy "Users can update own logbook"
         parts.push(docxPara('', { spaceAfter: 120 }));
         parts.push(docxReviewBox('Workplace Supervisor Comments', 2, [
           [{ label: 'Supervisor Name', value: d.supervisorName || '', width: 5200 }, { label: 'Date', value: '', width: 4346 }],
-          [{ label: 'Signature', value: '', width: 9546, span: 2 }]
+          [{ label: 'Signature', value: '', sigImg: sigMap['month:' + monthGroup.monthKey], width: 9546, span: 2 }]
         ]));
         return parts.join('');
       }
 
-      function buildDocxWeekPageXml(wk) {
+      function buildDocxWeekPageXml(wk, sigMap = {}) {
         const d = state.details;
         const parts = [];
         parts.push(docxPara(
@@ -6774,7 +7907,7 @@ create policy "Users can update own logbook"
         parts.push(docxPara('', { spaceAfter: 120 }));
         parts.push(docxReviewBox('Workplace Supervisor Comments', 3, [
           [{ label: 'Supervisor Name', value: d.supervisorName || '', width: 5200 }, { label: 'Date', value: '', width: 4346 }],
-          [{ label: 'Signature', value: '', width: 9546, span: 2 }]
+          [{ label: 'Signature', value: '', sigImg: sigMap['week:' + wk.weekNum], width: 9546, span: 2 }]
         ]));
         return parts.join('');
       }
@@ -6820,15 +7953,31 @@ create policy "Users can update own logbook"
             }
           }
 
+          const sigMap = {};
+          let nextDocPrId = 10;
+          const sigKeys = Object.keys(state.signatures || {});
+          for (let i = 0; i < sigKeys.length; i++) {
+            const sk = sigKeys[i];
+            const imgInfo = await decodeDataUrlImage(state.signatures[sk]);
+            if (imgInfo) {
+              const rId = `rIdSig${i + 1}`;
+              const fn = `sig_${i + 1}.${imgInfo.ext}`;
+              usedExts.add(imgInfo.ext);
+              mediaFiles.push({ name: `word/media/${fn}`, data: imgInfo.bytes });
+              relsEntries.push(`<Relationship Id="${rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/${fn}"/>`);
+              sigMap[sk] = { rId, docPrId: nextDocPrId++, info: imgInfo };
+            }
+          }
+
           const pagesXml = [];
 
           if (compileScopeMode === 'single') {
             if (compileLayoutStyle === 'monthly' && compileMonthKey !== null) {
               const mGrp = allMonths.find(m => m.monthKey === compileMonthKey);
-              if (mGrp) pagesXml.push(buildDocxMonthlyPageXml(mGrp));
+              if (mGrp) pagesXml.push(buildDocxMonthlyPageXml(mGrp, sigMap));
             } else if (compileWeekNum !== null) {
               const wk = allWeeks.find(w => w.weekNum === compileWeekNum);
-              if (wk) pagesXml.push(buildDocxWeekPageXml(wk));
+              if (wk) pagesXml.push(buildDocxWeekPageXml(wk, sigMap));
             }
           } else {
             if (includeSections.cover) {
@@ -6904,7 +8053,7 @@ create policy "Users can update own logbook"
               wpParts.push(docxReviewBox('Overall Comments & Assessment', 8, [
                 [{ label: 'Name', value: d.supervisorName || '', width: 5200 }, { label: 'Position', value: d.supervisorPosition || '', width: 4346 }],
                 [{ label: 'Contact', value: d.supervisorContact || '', width: 9546, span: 2 }],
-                [{ label: 'Signature', value: '', width: 5200 }, { label: 'Date', value: '', width: 4346 }]
+                [{ label: 'Signature', value: '', sigImg: sigMap['final:workplace'], width: 5200 }, { label: 'Date', value: '', width: 4346 }]
               ]));
               pagesXml.push(wpParts.join(''));
             }
@@ -6924,7 +8073,7 @@ create policy "Users can update own logbook"
               ));
               acParts.push(docxReviewBox('Assessment & Comments', 8, [
                 [{ label: 'Academic Supervisor', value: d.academicSupervisor || '', width: 5200 }, { label: 'Date of Visit', value: '', width: 4346 }],
-                [{ label: 'Signature', value: '', width: 5200 }, { label: 'Date', value: '', width: 4346 }]
+                [{ label: 'Signature', value: '', sigImg: sigMap['final:academic'], width: 5200 }, { label: 'Date', value: '', width: 4346 }]
               ]));
               pagesXml.push(acParts.join(''));
             }
@@ -7261,7 +8410,7 @@ create policy "Users can update own logbook"
       function switchTab(tabName) {
         if (tabName !== 'settings') lastMainTab = tabName;
         activeTab = tabName;
-        document.querySelectorAll('.m3-tab').forEach(btn => {
+        document.querySelectorAll('.m3-tab, .m3-bottom-tab').forEach(btn => {
           const match = btn.getAttribute('data-tab') === tabName;
           btn.classList.toggle('active', match);
           btn.setAttribute('aria-selected', String(match));
@@ -7280,7 +8429,7 @@ create policy "Users can update own logbook"
         if (tabName === 'history') renderHistoryTab();
         if (tabName === 'compile') renderCompileTab();
         if (tabName === 'details') renderDetailsTab();
-        if (tabName === 'settings') renderCloudSyncCard();
+        if (tabName === 'settings') { renderReminderCard(); renderCloudSyncCard(); }
       }
 
       function renderAll() {
@@ -7293,7 +8442,7 @@ create policy "Users can update own logbook"
       }
 
       function bindEvents() {
-        document.querySelectorAll('.m3-tab').forEach(btn => {
+        document.querySelectorAll('.m3-tab, .m3-bottom-tab').forEach(btn => {
           btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
         });
 
@@ -7371,8 +8520,115 @@ create policy "Users can update own logbook"
         });
 
         document.querySelectorAll('[data-status-choice]').forEach(btn => {
-          btn.addEventListener('click', () => setTaskStatusUi(btn.getAttribute('data-status-choice')));
+          btn.addEventListener('click', () => {
+            setTaskStatusUi(btn.getAttribute('data-status-choice'));
+            scheduleDraftSave();
+          });
         });
+
+        // Collapsible Remarks toggle
+        const btnToggleRemarks = document.getElementById('btn-toggle-remarks');
+        if (btnToggleRemarks) {
+          btnToggleRemarks.addEventListener('click', () => setRemarksExpanded(!remarksExpanded, !remarksExpanded));
+        }
+
+        // Quick-Insert Snippets bar
+        const snippetsBar = document.getElementById('snippets-bar');
+        const snippetAdder = document.getElementById('snippet-inline-adder');
+        const snippetInput = document.getElementById('input-new-snippet');
+        if (snippetsBar) {
+          snippetsBar.addEventListener('click', e => {
+            const delBtn = e.target.closest('[data-snippet-del]');
+            if (delBtn) {
+              e.stopPropagation();
+              const idx = Number(delBtn.getAttribute('data-snippet-del'));
+              if (Number.isInteger(idx) && state.snippets[idx] !== undefined) {
+                const removed = state.snippets.splice(idx, 1)[0];
+                saveState();
+                renderSnippetsBar();
+                showSnackbar('Snippet removed', {
+                  label: 'Undo',
+                  onAction: () => {
+                    state.snippets.splice(idx, 0, removed);
+                    saveState();
+                    renderSnippetsBar();
+                  }
+                });
+              }
+              return;
+            }
+            const insChip = e.target.closest('[data-snippet-insert]');
+            if (insChip) {
+              const idx = Number(insChip.getAttribute('data-snippet-insert'));
+              if (state.snippets[idx]) insertSnippetIntoTask(state.snippets[idx]);
+              return;
+            }
+            if (e.target.closest('#btn-open-snippet-adder') && snippetAdder) {
+              snippetAdder.classList.toggle('open');
+              if (snippetAdder.classList.contains('open') && snippetInput) {
+                const curPlain = richHtmlToPlainText(getRichEditorContent('task')).split('\n')[0].trim();
+                snippetInput.value = curPlain.length <= 120 ? curPlain : '';
+                snippetInput.focus();
+                snippetInput.select();
+              }
+            }
+          });
+        }
+
+        function saveNewSnippetFromInput() {
+          if (!snippetInput) return;
+          const val = snippetInput.value.trim();
+          if (!val) {
+            snippetInput.focus();
+            return;
+          }
+          if (!Array.isArray(state.snippets)) state.snippets = [];
+          if (!state.snippets.includes(val)) {
+            state.snippets.push(val);
+            saveState();
+          }
+          snippetInput.value = '';
+          if (snippetAdder) snippetAdder.classList.remove('open');
+          renderSnippetsBar();
+          showSnackbar('Quick snippet saved');
+        }
+
+        const btnSaveSnip = document.getElementById('btn-save-snippet');
+        const btnCancelSnip = document.getElementById('btn-cancel-snippet');
+        if (btnSaveSnip) btnSaveSnip.addEventListener('click', saveNewSnippetFromInput);
+        if (btnCancelSnip) {
+          btnCancelSnip.addEventListener('click', () => {
+            if (snippetInput) snippetInput.value = '';
+            if (snippetAdder) snippetAdder.classList.remove('open');
+          });
+        }
+        if (snippetInput) {
+          snippetInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              saveNewSnippetFromInput();
+            } else if (e.key === 'Escape' && snippetAdder) {
+              snippetAdder.classList.remove('open');
+            }
+          });
+        }
+
+        // Inline Weekly Summary (Entire Week mode)
+        const inlineSumTa = document.getElementById('input-inline-week-summary');
+        if (inlineSumTa) {
+          bindWordTextboxBehavior(inlineSumTa);
+          let inlineSumTimer = null;
+          inlineSumTa.addEventListener('input', () => {
+            state.weeklySummaries[String(selectedWeekNum)] = inlineSumTa.value;
+            saveState();
+            const ind = document.getElementById('weekly-inline-summary-saved');
+            if (ind) {
+              ind.classList.add('visible');
+              clearTimeout(inlineSumTimer);
+              inlineSumTimer = setTimeout(() => ind.classList.remove('visible'), 1500);
+            }
+          });
+        }
 
         document.querySelectorAll('[data-daily-filter]').forEach(btn => {
           btn.addEventListener('click', () => {
@@ -7432,8 +8688,11 @@ create policy "Users can update own logbook"
           const id = btn.getAttribute('data-id');
           if (action === 'edit-daily') loadTaskForEdit(selectedDateIso, id);
           if (action === 'delete-daily') removeTask(selectedDateIso, id);
+          if (action === 'toggle-daily-status') toggleDailyTaskStatus(selectedDateIso, id);
+          if (action === 'carry-over-daily') carryOverTaskToToday(selectedDateIso, id);
           if (action === 'edit-weekly') loadWeeklyTaskForEdit(selectedWeekNum, id);
           if (action === 'delete-weekly') removeWeeklyTask(selectedWeekNum, id);
+          if (action === 'toggle-weekly-status') toggleWeeklyTaskStatus(selectedWeekNum, id);
         });
 
         const searchInput = document.getElementById('history-search-input');
@@ -7455,8 +8714,11 @@ create policy "Users can update own logbook"
           const wkAttr = btn.getAttribute('data-week');
           if (action === 'edit-history') loadTaskForEdit(date, id);
           if (action === 'delete-history') removeTask(date, id);
+          if (action === 'toggle-history-status') toggleDailyTaskStatus(date, id);
+          if (action === 'carry-over-history') carryOverTaskToToday(date, id);
           if (action === 'edit-history-weekly') loadWeeklyTaskForEdit(wkAttr, id);
           if (action === 'delete-history-weekly') removeWeeklyTask(wkAttr, id);
+          if (action === 'toggle-history-weekly-status') toggleWeeklyTaskStatus(wkAttr, id);
         });
 
         const summaryTimers = {};
@@ -7830,8 +9092,43 @@ create policy "Users can update own logbook"
         document.getElementById('m3-dialog-scrim').addEventListener('click', e => {
           if (e.target.id === 'm3-dialog-scrim') closeDialog(false);
         });
+        // Compiled preview supervisor signature actions
+        document.getElementById('compiled-book-preview').addEventListener('click', e => {
+          const openBtn = e.target.closest('[data-sig-open]');
+          if (openBtn) {
+            openSignaturePad(openBtn.getAttribute('data-sig-open'), openBtn.getAttribute('data-sig-title'));
+            return;
+          }
+          const clearBtn = e.target.closest('[data-sig-clear]');
+          if (clearBtn) {
+            clearSavedSignature(clearBtn.getAttribute('data-sig-clear'));
+          }
+        });
+
+        document.getElementById('btn-sig-clear').addEventListener('click', clearSignatureCanvas);
+        document.getElementById('btn-sig-cancel').addEventListener('click', closeSignaturePad);
+        document.getElementById('btn-sig-save').addEventListener('click', saveCurrentSignature);
+        document.getElementById('sig-dialog-scrim').addEventListener('click', e => {
+          if (e.target.id === 'sig-dialog-scrim') closeSignaturePad();
+        });
+
+        // Weekday Reminder controls
+        const remToggle = document.getElementById('toggle-reminder-enabled');
+        const remTime = document.getElementById('input-reminder-time');
+        if (remToggle && remTime) {
+          remToggle.addEventListener('change', () => syncWeekdayNotifications(remToggle.checked, remTime.value, true));
+          remTime.addEventListener('change', () => syncWeekdayNotifications(remToggle.checked, remTime.value, true));
+        }
+
         document.addEventListener('keydown', e => {
-          if (e.key === 'Escape' && dialogResolver) closeDialog(false);
+          if (e.key === 'Escape') {
+            const sigModal = document.getElementById('sig-dialog-scrim');
+            if (sigModal && sigModal.classList.contains('open')) {
+              closeSignaturePad();
+              return;
+            }
+            if (dialogResolver) closeDialog(false);
+          }
         });
       }
 
@@ -7848,6 +9145,9 @@ create policy "Users can update own logbook"
         selectedWeekNum = Math.max(1, getWeekNumber(getTodayIso(), getAnchorIso()));
         bindEvents();
         renderAll();
+        renderReminderCard();
+        restoreSavedDraftIfAny();
+        initNativeAndroidBackButton();
         initSupabaseClient();
       });
     })();
