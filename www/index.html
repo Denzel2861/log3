@@ -9,6 +9,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Log Book">
   <title>Attachment Log Book</title>
+  <link rel="icon" type="image/png" href="./icon.png">
+  <link rel="apple-touch-icon" href="./icon.png">
 
   <!-- Bundled Offline Quill v2 Snow Theme & Script (baked into APK during GitHub Actions build) -->
   <link rel="stylesheet" href="./vendor/quill.snow.css">
@@ -198,6 +200,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
+      overflow-x: clip;
     }
 
     button,
@@ -3282,34 +3285,670 @@
       }
     }
 
+
+    /* ==========================================================================
+       13. COMPILE & EXPORT HORIZONTAL OVERFLOW FIX (MOBILE & DESKTOP)
+       ========================================================================== */
+    #panel-compile,
+    .export-toolbar,
+    .preview-desk,
+    .book-preview-stack {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .book-page {
+      max-width: min(810px, 100%);
+      overflow-x: hidden;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .bp-monthly-table,
+    .bp-log-table,
+    .bp-details-table,
+    .bp-logo-table,
+    .bp-sig-table {
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+    }
+
+    .bp-monthly-table th,
+    .bp-monthly-table td,
+    .bp-log-table th,
+    .bp-log-table td,
+    .bp-details-table th,
+    .bp-details-table td,
+    .bp-sig-table td {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .bp-logo-table img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .bp-sig-underline {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scope-select {
+      max-width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .export-toolbar {
+        padding: 16px 14px;
+      }
+
+      .export-toolbar-top .button-row,
+      .scope-group {
+        width: 100%;
+      }
+
+      .scope-select {
+        width: 100%;
+      }
+
+      .preview-desk {
+        padding: 12px 8px;
+      }
+
+      .book-page {
+        padding: 20px 14px;
+        font-size: 9.8pt;
+      }
+
+      .bp-main-title {
+        font-size: 16pt;
+      }
+
+      .bp-report-heading {
+        font-size: 13pt;
+      }
+
+      .bp-monthly-title {
+        font-size: 11.5pt;
+      }
+
+      .bp-logo-table img {
+        max-height: 58px;
+        max-width: 92%;
+      }
+
+      .bp-monthly-table,
+      .bp-log-table,
+      .bp-details-table {
+        font-size: 9.2pt;
+      }
+
+      .bp-monthly-table th,
+      .bp-monthly-table td,
+      .bp-log-table th,
+      .bp-log-table td,
+      .bp-details-table th,
+      .bp-details-table td {
+        padding: 7px 6px;
+      }
+
+      .bp-monthly-table td.bp-daydate-cell {
+        white-space: normal;
+        width: 28%;
+        line-height: 1.4;
+        font-size: 8.8pt;
+      }
+
+      .bp-review-box {
+        padding: 12px 12px;
+      }
+
+      .bp-sig-table,
+      .bp-sig-table tbody,
+      .bp-sig-table tr,
+      .bp-sig-table td {
+        display: block;
+        width: 100% !important;
+      }
+
+      .bp-sig-table td {
+        padding: 8px 0 4px;
+      }
+
+      .bp-sig-underline {
+        min-width: 120px !important;
+        max-width: 100%;
+      }
+
+      .bp-sig-action-bar {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 0;
+        margin-top: 8px;
+      }
+    }
+
+    @media print {
+      .book-page {
+        max-width: none !important;
+        overflow: visible !important;
+      }
+
+      .bp-sig-table {
+        display: table !important;
+      }
+
+      .bp-sig-table tbody {
+        display: table-row-group !important;
+      }
+
+      .bp-sig-table tr {
+        display: table-row !important;
+      }
+
+      .bp-sig-table td {
+        display: table-cell !important;
+        width: auto !important;
+      }
+
+      .bp-monthly-table td.bp-daydate-cell {
+        white-space: nowrap !important;
+        width: 21% !important;
+      }
+    }
+
+
+    /* ==========================================================================
+       14. V6 UPGRADES: SPLASH SCREEN, SMOOTH ANIMATIONS, MINIMALIST HEADER,
+           MULTI-LEVEL BULLETS, HISTORY FILTERS & APP LOCK / BIOMETRICS
+       ========================================================================== */
+
+    /* Minimalist Top App Bar (Title & Icon removed) */
+    .app-bar-inner {
+      min-height: 54px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .sync-pill {
+      height: 30px;
+      padding: 0 11px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      gap: 6px;
+      border-width: 1px;
+      background: transparent;
+      border-color: var(--outline-variant);
+      color: var(--on-surface-variant);
+    }
+
+    .sync-pill .sync-dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    .sync-pill.state-synced {
+      background: transparent;
+      color: var(--success);
+      border-color: rgba(15, 92, 38, 0.3);
+    }
+
+    .sync-pill.state-syncing {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary-border-soft);
+    }
+
+    .sync-pill.state-offline {
+      background: transparent;
+      color: var(--warning);
+      border-color: rgba(143, 77, 0, 0.3);
+    }
+
+    .sync-pill.state-error {
+      background: transparent;
+      color: var(--error);
+      border-color: rgba(165, 29, 22, 0.3);
+    }
+
+    /* Smooth App-Wide Animations */
+    @keyframes m3PanelIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.992);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .tab-panel.active {
+      animation: m3PanelIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes cardRiseIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .task-card,
+    .history-task-item,
+    .week-card {
+      animation: cardRiseIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.16s ease, box-shadow 0.18s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .m3-card,
+    .stat-card {
+      transition: transform 0.18s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .m3-bottom-pill {
+      transition: background 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .m3-bottom-tab.active .m3-bottom-pill {
+      transform: scale(1.04);
+    }
+
+    .m3-bottom-tab:active .m3-bottom-pill {
+      transform: scale(0.94);
+    }
+
+    /* Launch Splash Screen Overlay */
+    .app-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at 50% 42%, #313d7a 0%, #283265 55%, #1c244b 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.42s cubic-bezier(0.4, 0, 0.2, 1), transform 0.42s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.42s;
+    }
+
+    .app-splash.splash-hide {
+      opacity: 0;
+      transform: scale(1.04);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-logo-wrap {
+      width: 112px;
+      height: 112px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38);
+      animation: splashPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .splash-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .splash-title {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0;
+      opacity: 0;
+      animation: splashFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.14s forwards;
+    }
+
+    .splash-loader {
+      width: 120px;
+      height: 4px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.18);
+      overflow: hidden;
+      opacity: 0;
+      animation: splashFadeUp 0.4s ease 0.22s forwards;
+    }
+
+    .splash-loader-bar {
+      width: 45%;
+      height: 100%;
+      border-radius: 9999px;
+      background: #f59e0b;
+      animation: splashSlide 0.9s ease-in-out infinite alternate;
+    }
+
+    @keyframes splashPop {
+      from {
+        opacity: 0;
+        transform: scale(0.76) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes splashFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes splashSlide {
+      from { transform: translateX(-10%); }
+      to { transform: translateX(135%); }
+    }
+
+    /* Multi-level Bullet & Indent Support (Editor, Cards & Compiled Sheets) */
+    .task-body li.ql-indent-1,
+    .task-remarks li.ql-indent-1,
+    .bp-work-entry li.ql-indent-1 {
+      margin-left: 1.5em;
+      list-style-type: circle;
+    }
+
+    .task-body li.ql-indent-2,
+    .task-remarks li.ql-indent-2,
+    .bp-work-entry li.ql-indent-2 {
+      margin-left: 3em;
+      list-style-type: square;
+    }
+
+    .task-body li.ql-indent-3,
+    .task-remarks li.ql-indent-3,
+    .bp-work-entry li.ql-indent-3 {
+      margin-left: 4.5em;
+      list-style-type: disc;
+    }
+
+    .task-body li.ql-indent-4,
+    .task-remarks li.ql-indent-4,
+    .bp-work-entry li.ql-indent-4 {
+      margin-left: 6em;
+      list-style-type: circle;
+    }
+
+    .task-body li.ql-indent-5,
+    .task-remarks li.ql-indent-5,
+    .bp-work-entry li.ql-indent-5 {
+      margin-left: 7.5em;
+      list-style-type: square;
+    }
+
+    .task-body ol li.ql-indent-1,
+    .task-remarks ol li.ql-indent-1,
+    .bp-work-entry ol li.ql-indent-1 {
+      list-style-type: lower-alpha;
+    }
+
+    .task-body ol li.ql-indent-2,
+    .task-remarks ol li.ql-indent-2,
+    .bp-work-entry ol li.ql-indent-2 {
+      list-style-type: lower-roman;
+    }
+
+    .task-body p.ql-indent-1,
+    .task-remarks p.ql-indent-1,
+    .bp-work-entry p.ql-indent-1 { padding-left: 1.5em; }
+    .task-body p.ql-indent-2,
+    .task-remarks p.ql-indent-2,
+    .bp-work-entry p.ql-indent-2 { padding-left: 3em; }
+    .task-body p.ql-indent-3,
+    .task-remarks p.ql-indent-3,
+    .bp-work-entry p.ql-indent-3 { padding-left: 4.5em; }
+    .task-body p.ql-indent-4,
+    .task-remarks p.ql-indent-4,
+    .bp-work-entry p.ql-indent-4 { padding-left: 6em; }
+
+    /* History Tab Sort & Weekday Filter Bar */
+    .history-weekday-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .weekday-chip {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--outline-variant);
+      background: var(--surface);
+      color: var(--on-surface-variant);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.1s ease;
+    }
+
+    .weekday-chip:hover {
+      border-color: var(--primary);
+      color: var(--on-surface);
+    }
+
+    .weekday-chip:active {
+      transform: scale(0.96);
+    }
+
+    .weekday-chip.selected {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+      font-weight: 700;
+    }
+
+    /* Full-Screen App Lock & Biometrics Overlay */
+    .app-lock-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9500;
+      background: var(--bg);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      animation: fadeScrim 0.22s ease;
+    }
+
+    .app-lock-overlay.open {
+      display: flex;
+    }
+
+    .lock-card {
+      width: 100%;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .lock-icon-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--elevation-2);
+    }
+
+    .lock-icon-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lock-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+
+    .lock-sub {
+      margin: -6px 0 4px;
+      font-size: 0.86rem;
+      color: var(--on-surface-variant);
+    }
+
+    .pin-dots-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 24px;
+      margin: 4px 0;
+    }
+
+    .pin-dots-row.shake {
+      animation: pinShake 0.36s ease;
+    }
+
+    @keyframes pinShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-9px); }
+      40% { transform: translateX(9px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--outline);
+      background: transparent;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.14s ease;
+    }
+
+    .pin-dot.filled {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.12);
+    }
+
+    .pin-error-msg {
+      min-height: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--error);
+    }
+
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 72px);
+      gap: 14px 18px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .pin-key {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1.5px solid var(--outline-variant);
+      background: var(--surface);
+      color: var(--on-surface);
+      font-size: 1.45rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--elevation-1);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s ease, transform 0.1s ease, border-color 0.12s ease;
+    }
+
+    .pin-key:hover {
+      background: var(--surface-container);
+      border-color: var(--primary);
+    }
+
+    .pin-key:active {
+      transform: scale(0.92);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .pin-key.pin-key-action {
+      background: var(--surface-container-low);
+      font-size: 0.9rem;
+    }
+
+    .pin-key.pin-key-bio {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary-border-soft);
+    }
+
+    .pin-key.pin-key-hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media print {
+      .app-splash,
+      .app-lock-overlay {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 
 <body>
+
+  <!-- Animated Launch Splash Screen -->
+  <div id="app-splash" class="app-splash" aria-hidden="true">
+    <div class="splash-logo-wrap">
+      <img src="./icon.png" alt="Attachment Log Book">
+    </div>
+    <p class="splash-title">Attachment Log Book</p>
+    <div class="splash-loader">
+      <div class="splash-loader-bar"></div>
+    </div>
+  </div>
 
   <!-- ======================================================================
        STICKY TRANSLUCENT GOOGLE WORKSPACE TOP APP BAR & PILL TABS
        ====================================================================== -->
   <header class="top-chrome">
     <div class="app-bar-inner">
-      <div class="brand-group">
-        <div class="brand-badge" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 4h2v5l-1-.75L9 9V4zm9 16H6V4h1v9l3-2.25L13 13V4h5v16z" />
-          </svg>
-        </div>
-        <div class="brand-text">
-          <h1 class="brand-title">Attachment Log Book</h1>
-          <p class="brand-subtitle" id="app-bar-subtitle">Industrial attachment tracker &amp; formal compiler</p>
-        </div>
-      </div>
+      <button type="button" class="sync-pill" id="global-sync-pill" title="Manage Cloud Sync in Settings">
+        <span class="sync-dot" aria-hidden="true"></span>
+        <span id="global-sync-text">Local</span>
+      </button>
 
       <div class="app-bar-right">
-        <button type="button" class="sync-pill" id="global-sync-pill" title="Manage Cloud Sync in Settings">
-          <span class="sync-dot" aria-hidden="true"></span>
-          <span id="global-sync-text">Saved locally</span>
-        </button>
 
         <div class="segmented-control" role="group" aria-label="Theme preference">
           <button type="button" class="segment-btn" data-theme-choice="auto" title="Match system theme">
@@ -3644,6 +4283,24 @@
         <select id="history-week-filter" class="week-filter-select" aria-label="Filter by week">
           <option value="all">All Weeks</option>
         </select>
+
+        <select id="history-sort-order" class="week-filter-select" style="min-width: 175px;" aria-label="Sort order">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="most-tasks">Most tasks first</option>
+          <option value="fewest-tasks">Fewest tasks first</option>
+        </select>
+      </div>
+
+      <div class="history-weekday-bar" id="history-weekday-bar" role="group" aria-label="Filter by day of the week">
+        <button type="button" class="weekday-chip selected" data-weekday-filter="all">All Days</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Monday">Mon</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Tuesday">Tue</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Wednesday">Wed</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Thursday">Thu</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Friday">Fri</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Saturday">Sat</button>
+        <button type="button" class="weekday-chip" data-weekday-filter="Sunday">Sun</button>
       </div>
 
       <div id="history-weeks-list"></div>
@@ -3999,6 +4656,68 @@
           </div>
         </div>
 
+        <!-- APP LOCK & BIOMETRICS SECURITY CARD -->
+        <div class="m3-card" id="security-lock-card">
+          <div class="card-header">
+            <div class="card-title-row">
+              <div class="card-icon" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path
+                    d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="card-title">Screen Lock &amp; Biometrics</h2>
+                <p class="card-subtitle">Protect your log book with a PIN and fingerprint or face unlock.</p>
+              </div>
+            </div>
+            <span class="chip" id="lock-status-chip">Off</span>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <div style="font-weight: 700; color: var(--on-surface); font-size: 0.94rem;">Enable Screen Lock</div>
+              <div style="font-size: 0.82rem; color: var(--on-surface-variant);" id="lock-helper-text">Require your PIN or biometrics when opening the app.</div>
+            </div>
+            <label class="m3-switch" aria-label="Enable screen lock">
+              <input type="checkbox" id="toggle-app-lock">
+              <span class="m3-switch-slider"></span>
+            </label>
+          </div>
+
+          <div id="lock-options-panel" style="display: none; margin-top: 14px;">
+            <div class="switch-row" style="margin-bottom: 14px;">
+              <div>
+                <div style="font-weight: 700; color: var(--on-surface); font-size: 0.94rem;">Biometric Unlock (Fingerprint / Face)</div>
+                <div style="font-size: 0.82rem; color: var(--on-surface-variant);" id="biometric-helper-text">Use Android fingerprint or face recognition to unlock instantly.</div>
+              </div>
+              <label class="m3-switch" aria-label="Enable biometric unlock">
+                <input type="checkbox" id="toggle-biometric-unlock">
+                <span class="m3-switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="select-lock-timeout">Auto-Lock Timeout</label>
+                <select id="select-lock-timeout" class="m3-select">
+                  <option value="0">Immediately when leaving app</option>
+                  <option value="60">After 1 minute</option>
+                  <option value="300">After 5 minutes</option>
+                  <option value="900">After 15 minutes</option>
+                  <option value="-1">Only when reopening app</option>
+                </select>
+              </div>
+              <div class="field" style="justify-content: flex-end;">
+                <div class="button-row" style="margin-top: auto;">
+                  <button type="button" class="btn btn-outlined btn-sm" id="btn-change-pin">Change PIN</button>
+                  <button type="button" class="btn btn-tonal btn-sm" id="btn-lock-now">Lock Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- DAILY REMINDER NOTIFICATIONS CARD -->
         <div class="m3-card" id="reminder-card">
           <div class="card-header">
@@ -4328,6 +5047,64 @@ create policy "Users can update own logbook"
     </div>
   </div>
 
+  <!-- Full-Screen App Lock & Biometrics Overlay -->
+  <div id="app-lock-overlay" class="app-lock-overlay" role="dialog" aria-modal="true" aria-labelledby="lock-overlay-title">
+    <div class="lock-card">
+      <div class="lock-icon-wrap">
+        <img src="./icon.png" alt="">
+      </div>
+      <h2 class="lock-title" id="lock-overlay-title">Log Book Locked</h2>
+      <p class="lock-sub" id="lock-overlay-sub">Enter your PIN to unlock</p>
+      <div class="pin-dots-row" id="lock-pin-dots" aria-hidden="true"></div>
+      <div class="pin-error-msg" id="lock-pin-error" aria-live="polite"></div>
+      <div class="pin-keypad" id="lock-keypad">
+        <button type="button" class="pin-key" data-pin-digit="1">1</button>
+        <button type="button" class="pin-key" data-pin-digit="2">2</button>
+        <button type="button" class="pin-key" data-pin-digit="3">3</button>
+        <button type="button" class="pin-key" data-pin-digit="4">4</button>
+        <button type="button" class="pin-key" data-pin-digit="5">5</button>
+        <button type="button" class="pin-key" data-pin-digit="6">6</button>
+        <button type="button" class="pin-key" data-pin-digit="7">7</button>
+        <button type="button" class="pin-key" data-pin-digit="8">8</button>
+        <button type="button" class="pin-key" data-pin-digit="9">9</button>
+        <button type="button" class="pin-key pin-key-bio pin-key-hidden" id="btn-lock-biometric" title="Unlock with Biometrics" aria-label="Unlock with Biometrics">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27C9.98 4.04 14 4.03 17.15 5.65c1.5.77 2.76 1.86 3.75 3.25.16.22.11.54-.12.7-.23.16-.54.11-.7-.12-.9-1.26-2.04-2.25-3.39-2.94-2.87-1.47-6.54-1.47-9.4.01-1.36.7-2.5 1.7-3.4 2.96-.08.14-.23.21-.39.21zm6.25 12.07c-.13 0-.26-.05-.35-.15-.87-.87-1.34-1.43-2.01-2.64-.69-1.23-1.05-2.73-1.05-4.34 0-2.97 2.54-5.39 5.66-5.39s5.66 2.42 5.66 5.39c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-2.42-2.09-4.39-4.66-4.39-2.57 0-4.66 1.97-4.66 4.39 0 1.44.32 2.77.93 3.85.64 1.15 1.08 1.64 1.85 2.42.19.2.19.51 0 .71-.11.1-.24.15-.37.15zm7.17-1.85c-1.19 0-2.24-.3-3.1-.89-1.49-1.01-2.38-2.65-2.38-4.39 0-.28.22-.5.5-.5s.5.22.5.5c0 1.41.72 2.74 1.94 3.56.71.48 1.54.71 2.54.71.24 0 .64-.03 1.04-.1.27-.05.53.13.58.41.05.27-.13.53-.41.58-.57.11-1.07.12-1.21.12zM14.91 22c-.04 0-.09-.01-.13-.02-1.59-.44-2.63-1.03-3.72-2.1-1.4-1.39-2.17-3.24-2.17-5.22 0-1.62 1.38-2.94 3.08-2.94 1.7 0 3.08 1.32 3.08 2.94 0 1.07.93 1.94 2.08 1.94s2.08-.87 2.08-1.94c0-3.77-3.25-6.83-7.25-6.83-2.84 0-5.44 1.58-6.61 4.03-.39.81-.59 1.76-.59 2.8 0 .78.07 2.01.67 3.61.1.26-.03.55-.29.64-.26.1-.55-.04-.64-.29-.49-1.31-.73-2.61-.73-3.96 0-1.2.23-2.29.68-3.24 1.33-2.79 4.28-4.6 7.51-4.6 4.55 0 8.25 3.51 8.25 7.83 0 1.62-1.38 2.94-3.08 2.94s-3.08-1.32-3.08-2.94c0-1.07-.93-1.94-2.08-1.94s-2.08.87-2.08 1.94c0 1.71.66 3.31 1.87 4.51.95.94 1.86 1.46 3.27 1.85.27.07.42.35.35.61-.05.23-.26.38-.47.38z"/>
+          </svg>
+        </button>
+        <button type="button" class="pin-key" data-pin-digit="0">0</button>
+        <button type="button" class="pin-key pin-key-action" id="btn-lock-backspace" title="Delete digit" aria-label="Delete digit">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIN Setup Modal -->
+  <div id="pin-setup-scrim" class="dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="pin-setup-title">
+    <div class="m3-dialog" style="max-width: 390px;">
+      <h3 class="m3-dialog-title" id="pin-setup-title">Set Screen Lock PIN</h3>
+      <p class="m3-dialog-body" style="margin-bottom: 16px;" id="pin-setup-sub">Choose a 4 to 6 digit numeric PIN to protect your log book.</p>
+      <div class="form-grid" style="grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px;">
+        <div class="field">
+          <label for="input-pin-new">Enter PIN (4–6 digits)</label>
+          <input type="password" id="input-pin-new" class="m3-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="••••" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="input-pin-confirm">Confirm PIN</label>
+          <input type="password" id="input-pin-confirm" class="m3-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="••••" autocomplete="off">
+        </div>
+        <span class="field-error-text" id="pin-setup-err">PINs must match and be 4–6 digits</span>
+      </div>
+      <div class="m3-dialog-actions">
+        <button type="button" class="btn btn-text" id="btn-pin-setup-cancel">Cancel</button>
+        <button type="button" class="btn btn-filled" id="btn-pin-setup-save">Save PIN</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Material 3 Confirmation Dialog -->
   <div id="m3-dialog-scrim" class="dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
     <div class="m3-dialog">
@@ -4359,6 +5136,7 @@ create policy "Users can update own logbook"
       const SUPABASE_CFG_KEY = 'attachment_logbook_supabase_cfg_v1';
       const DRAFT_KEY = 'attachment_logbook_draft_v1';
       const REMINDER_KEY = 'attachment_logbook_reminder_v1';
+      const LOCK_KEY = 'attachment_logbook_security_v1';
       const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const MONTHS_FULL = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
@@ -4425,6 +5203,12 @@ create policy "Users can update own logbook"
       let activeSigKey = null;
       let sigDrawing = false;
       let sigHasInk = false;
+      let historyWeekdayFilter = 'all';
+      let historySortOrder = 'newest';
+      let lockPinEntry = '';
+      let isAppLocked = false;
+      let lastBackgroundAt = 0;
+      let pendingEnableLockAfterPin = false;
 
       function injectPwaManifest() {
         try {
@@ -4705,7 +5489,9 @@ create policy "Users can update own logbook"
               let liInner = '';
               li.childNodes.forEach(c => { liInner += walkInline(c); });
               liInner = liInner.replace(/^(?:<br>)+|(?:<br>)+$/gi, '').trim();
-              if (liInner) currentItems.push(`<li>${liInner}</li>`);
+              const indentMatch = /\bql-indent-([1-6])\b/.exec(li.className || '');
+              const clsAttr = indentMatch ? ` class="ql-indent-${indentMatch[1]}"` : '';
+              if (liInner) currentItems.push(`<li${clsAttr}>${liInner}</li>`);
             });
             flushList();
             return result;
@@ -4715,7 +5501,9 @@ create policy "Users can update own logbook"
             let pInner = '';
             node.childNodes.forEach(c => { pInner += walkInline(c); });
             pInner = pInner.replace(/^(?:<br>)+|(?:<br>)+$/gi, '');
-            return pInner.trim() ? `<p>${pInner}</p>` : '';
+            const indentMatch = /\bql-indent-([1-6])\b/.exec(node.className || '');
+            const clsAttr = indentMatch ? ` class="ql-indent-${indentMatch[1]}"` : '';
+            return pInner.trim() ? `<p${clsAttr}>${pInner}</p>` : '';
           }
 
           return walkInline(node);
@@ -5055,27 +5843,27 @@ create policy "Users can update own logbook"
           }
         } else if (mode === 'syncing') {
           pill.classList.add('state-syncing');
-          text.textContent = 'Syncing...';
+          text.textContent = 'Syncing';
           if (badge) {
             badge.classList.add('chip-primary');
             badge.textContent = 'Syncing...';
           }
         } else if (mode === 'offline') {
           pill.classList.add('state-offline');
-          text.textContent = 'Offline (saved locally)';
+          text.textContent = 'Offline';
           if (badge) {
             badge.classList.add('chip-in-progress');
             badge.textContent = 'Offline';
           }
         } else if (mode === 'error') {
           pill.classList.add('state-error');
-          text.textContent = 'Sync error';
+          text.textContent = 'Error';
           if (badge) {
             badge.classList.add('chip-error');
             badge.textContent = 'Sync error';
           }
         } else {
-          text.textContent = 'Saved locally';
+          text.textContent = 'Local';
           if (badge) {
             badge.textContent = supabaseClient ? 'Sign in required' : 'Not connected';
           }
@@ -5635,7 +6423,7 @@ create policy "Users can update own logbook"
         return { start, end };
       }
 
-      function groupEntriesByWeek(searchQuery = '', weekFilter = 'all') {
+      function groupEntriesByWeek(searchQuery = '', weekFilter = 'all', weekdayFilter = 'all') {
         const q = searchQuery.trim().toLowerCase();
         const anchor = getAnchorIso();
         const dates = getActiveDatesSorted();
@@ -5658,8 +6446,8 @@ create policy "Users can update own logbook"
           return weeksMap.get(wkNum);
         }
 
-        // 1. Add full-week entries
-        Object.keys(state.weeklyEntries || {}).forEach(wkKey => {
+        // 1. Add full-week entries (skip when filtering by a specific day of the week)
+        if (weekdayFilter === 'all') Object.keys(state.weeklyEntries || {}).forEach(wkKey => {
           const wkNum = Number(wkKey);
           if (!Number.isFinite(wkNum)) return;
           if (weekFilter !== 'all' && String(wkNum) !== String(weekFilter)) return;
@@ -5692,6 +6480,7 @@ create policy "Users can update own logbook"
         dates.forEach(dateIso => {
           const wkNum = getWeekNumber(dateIso, anchor);
           if (weekFilter !== 'all' && String(wkNum) !== String(weekFilter)) return;
+          if (weekdayFilter !== 'all' && getWeekdayName(dateIso) !== weekdayFilter) return;
 
           const allTasks = state.entries[dateIso] || [];
           const summaryStr = (state.weeklySummaries[String(wkNum)] || '').toLowerCase();
@@ -5807,10 +6596,13 @@ create policy "Users can update own logbook"
       }
 
       function renderChromeAndStats() {
-        const parts = [state.details.fullName, state.details.companyName].filter(Boolean);
-        document.getElementById('app-bar-subtitle').textContent = parts.length > 0
-          ? parts.join(' • ')
-          : 'Industrial attachment tracker & formal compiler';
+        const subEl = document.getElementById('app-bar-subtitle');
+        if (subEl) {
+          const parts = [state.details.fullName, state.details.companyName].filter(Boolean);
+          subEl.textContent = parts.length > 0
+            ? parts.join(' • ')
+            : 'Industrial attachment tracker & formal compiler';
+        }
 
         const stats = calculateStats();
         document.getElementById('stat-week-label').textContent = stats.weekLabel;
@@ -5931,6 +6723,7 @@ create policy "Users can update own logbook"
       const QUILL_TOOLBAR_CONFIG = [
         ['bold', 'italic', 'underline', 'strike'],
         [{ list: 'bullet' }, { list: 'ordered' }],
+        [{ indent: '-1' }, { indent: '+1' }],
         ['clean']
       ];
 
@@ -6486,6 +7279,245 @@ create policy "Users can update own logbook"
         }
       }
 
+      /* ---------- Animated Launch Splash Screen ---------- */
+      function dismissLaunchSplash() {
+        const splash = document.getElementById('app-splash');
+        if (!splash) return;
+        const plugins = window.Capacitor && window.Capacitor.Plugins;
+        if (plugins && plugins.SplashScreen && typeof plugins.SplashScreen.hide === 'function') {
+          try { plugins.SplashScreen.hide({ fadeOutDuration: 250 }); } catch (e) { }
+        }
+        setTimeout(() => {
+          splash.classList.add('splash-hide');
+          setTimeout(() => {
+            if (splash.parentNode) splash.style.display = 'none';
+          }, 460);
+        }, 650);
+      }
+
+      /* ---------- Screen Lock & Biometrics ---------- */
+      function getLockSettings() {
+        try {
+          const raw = localStorage.getItem(LOCK_KEY);
+          if (raw) {
+            const p = JSON.parse(raw);
+            return {
+              enabled: Boolean(p.enabled),
+              pinHash: typeof p.pinHash === 'string' ? p.pinHash : '',
+              pinLen: Number(p.pinLen) || 4,
+              biometric: Boolean(p.biometric),
+              timeoutSec: Number.isFinite(Number(p.timeoutSec)) ? Number(p.timeoutSec) : 0
+            };
+          }
+        } catch (e) { }
+        return { enabled: false, pinHash: '', pinLen: 4, biometric: false, timeoutSec: 0 };
+      }
+
+      function saveLockSettings(cfg) {
+        try { localStorage.setItem(LOCK_KEY, JSON.stringify(cfg)); } catch (e) { }
+        renderSecurityCard();
+      }
+
+      async function hashPin(pin) {
+        const str = 'logbook_pin_salt_v1::' + String(pin || '');
+        if (window.crypto && window.crypto.subtle) {
+          const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+          return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+        let h = 2166136261;
+        for (let i = 0; i < str.length; i++) {
+          h ^= str.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return 'fnv_' + (h >>> 0).toString(16);
+      }
+
+      function isNativeBiometricAvailable() {
+        try {
+          return Boolean(
+            window.AndroidBiometric &&
+            typeof window.AndroidBiometric.isAvailable === 'function' &&
+            window.AndroidBiometric.isAvailable()
+          );
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function renderSecurityCard() {
+        const cfg = getLockSettings();
+        const toggle = document.getElementById('toggle-app-lock');
+        const bioToggle = document.getElementById('toggle-biometric-unlock');
+        const timeoutEl = document.getElementById('select-lock-timeout');
+        const panel = document.getElementById('lock-options-panel');
+        const chip = document.getElementById('lock-status-chip');
+        const bioHelper = document.getElementById('biometric-helper-text');
+        if (!toggle) return;
+
+        toggle.checked = cfg.enabled && Boolean(cfg.pinHash);
+        if (bioToggle) bioToggle.checked = cfg.biometric;
+        if (timeoutEl) timeoutEl.value = String(cfg.timeoutSec);
+        if (panel) panel.style.display = toggle.checked ? 'block' : 'none';
+
+        if (chip) {
+          chip.classList.remove('chip-completed');
+          if (toggle.checked) {
+            chip.classList.add('chip-completed');
+            chip.textContent = cfg.biometric ? 'PIN + Biometrics' : 'PIN Active';
+          } else {
+            chip.textContent = 'Off';
+          }
+        }
+
+        if (bioHelper) {
+          bioHelper.textContent = isNativeBiometricAvailable()
+            ? 'Fingerprint / Face unlock is ready on this Android device.'
+            : 'Automatically activates with Android fingerprint or face unlock inside the APK.';
+        }
+      }
+
+      function renderLockPinDots() {
+        const cfg = getLockSettings();
+        const targetLen = Math.max(4, Math.min(6, cfg.pinLen || 4));
+        const host = document.getElementById('lock-pin-dots');
+        if (!host) return;
+        let dots = '';
+        for (let i = 0; i < targetLen; i++) {
+          dots += `<span class="pin-dot${i < lockPinEntry.length ? ' filled' : ''}"></span>`;
+        }
+        host.innerHTML = dots;
+      }
+
+      function triggerBiometricPrompt() {
+        const cfg = getLockSettings();
+        if (!cfg.enabled || !cfg.biometric) return;
+        if (isNativeBiometricAvailable() && typeof window.AndroidBiometric.authenticate === 'function') {
+          try {
+            window.AndroidBiometric.authenticate('Unlock Attachment Log Book', 'Verify with fingerprint or face');
+          } catch (err) {
+            console.error('Biometric prompt error:', err);
+          }
+        } else {
+          const errEl = document.getElementById('lock-pin-error');
+          if (errEl) errEl.textContent = 'Biometrics unavailable here — enter your PIN';
+        }
+      }
+
+      window.__onNativeBiometricResult = function (success, message) {
+        if (success) {
+          unlockAppScreen();
+        } else if (message) {
+          const errEl = document.getElementById('lock-pin-error');
+          if (errEl) errEl.textContent = String(message);
+        }
+      };
+
+      function showLockScreen(autoPromptBio = true) {
+        const cfg = getLockSettings();
+        if (!cfg.enabled || !cfg.pinHash) return;
+        isAppLocked = true;
+        lockPinEntry = '';
+        const overlay = document.getElementById('app-lock-overlay');
+        const errEl = document.getElementById('lock-pin-error');
+        const bioBtn = document.getElementById('btn-lock-biometric');
+        if (errEl) errEl.textContent = '';
+        if (bioBtn) {
+          bioBtn.classList.toggle('pin-key-hidden', !cfg.biometric);
+        }
+        renderLockPinDots();
+        if (overlay) overlay.classList.add('open');
+        if (autoPromptBio && cfg.biometric && isNativeBiometricAvailable()) {
+          setTimeout(() => triggerBiometricPrompt(), 280);
+        }
+      }
+
+      function unlockAppScreen() {
+        isAppLocked = false;
+        lockPinEntry = '';
+        const overlay = document.getElementById('app-lock-overlay');
+        if (overlay) overlay.classList.remove('open');
+      }
+
+      async function handlePinDigitInput(digit) {
+        if (!isAppLocked) return;
+        const cfg = getLockSettings();
+        const targetLen = Math.max(4, Math.min(6, cfg.pinLen || 4));
+        if (lockPinEntry.length >= targetLen) return;
+        lockPinEntry += String(digit);
+        const errEl = document.getElementById('lock-pin-error');
+        if (errEl) errEl.textContent = '';
+        renderLockPinDots();
+
+        if (lockPinEntry.length === targetLen) {
+          const enteredHash = await hashPin(lockPinEntry);
+          if (enteredHash === cfg.pinHash) {
+            unlockAppScreen();
+          } else {
+            const dotsEl = document.getElementById('lock-pin-dots');
+            if (errEl) errEl.textContent = 'Incorrect PIN. Try again.';
+            if (dotsEl) {
+              dotsEl.classList.remove('shake');
+              void dotsEl.offsetWidth;
+              dotsEl.classList.add('shake');
+            }
+            setTimeout(() => {
+              lockPinEntry = '';
+              renderLockPinDots();
+            }, 340);
+          }
+        }
+      }
+
+      function openPinSetupModal(enableAfterSave = false) {
+        pendingEnableLockAfterPin = Boolean(enableAfterSave);
+        const scrim = document.getElementById('pin-setup-scrim');
+        const p1 = document.getElementById('input-pin-new');
+        const p2 = document.getElementById('input-pin-confirm');
+        const err = document.getElementById('pin-setup-err');
+        if (p1) p1.value = '';
+        if (p2) p2.value = '';
+        if (err) err.classList.remove('visible');
+        if (scrim) scrim.classList.add('open');
+        if (p1) setTimeout(() => p1.focus(), 60);
+      }
+
+      function closePinSetupModal(saved = false) {
+        const scrim = document.getElementById('pin-setup-scrim');
+        if (scrim) scrim.classList.remove('open');
+        if (!saved && pendingEnableLockAfterPin) {
+          pendingEnableLockAfterPin = false;
+          renderSecurityCard();
+        }
+      }
+
+      function initAutoLockLifecycle() {
+        function onPause() {
+          lastBackgroundAt = Date.now();
+        }
+        function onResume() {
+          const cfg = getLockSettings();
+          if (!cfg.enabled || !cfg.pinHash || isAppLocked) return;
+          if (cfg.timeoutSec < 0) return; // Only on cold launch
+          const elapsedSec = lastBackgroundAt ? (Date.now() - lastBackgroundAt) / 1000 : 0;
+          if (lastBackgroundAt && elapsedSec >= cfg.timeoutSec) {
+            showLockScreen(true);
+          }
+        }
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) onPause();
+          else onResume();
+        });
+        const plugins = window.Capacitor && window.Capacitor.Plugins;
+        if (isNativeAndroidApp() && plugins && plugins.App) {
+          try {
+            plugins.App.addListener('appStateChange', ({ isActive }) => {
+              if (!isActive) onPause();
+              else onResume();
+            });
+          } catch (e) { }
+        }
+      }
+
       function renderDailyTab() {
         const isWeekly = entryMode === 'weekly';
         renderSnippetsBar();
@@ -6884,20 +7916,27 @@ create policy "Users can update own logbook"
 
         const query = document.getElementById('history-search-input').value || '';
         const weekFilter = document.getElementById('history-week-filter').value || 'all';
+        const sortEl = document.getElementById('history-sort-order');
+        historySortOrder = sortEl ? sortEl.value : historySortOrder;
         document.getElementById('btn-clear-search').style.display = query ? 'inline-flex' : 'none';
 
-        const weeks = groupEntriesByWeek(query, weekFilter);
+        document.querySelectorAll('[data-weekday-filter]').forEach(btn => {
+          btn.classList.toggle('selected', btn.getAttribute('data-weekday-filter') === historyWeekdayFilter);
+        });
+
+        const weeks = groupEntriesByWeek(query, weekFilter, historyWeekdayFilter);
         const container = document.getElementById('history-weeks-list');
 
         if (weeks.length === 0) {
-          container.innerHTML = query
+          const hasFilter = Boolean(query || historyWeekdayFilter !== 'all');
+          container.innerHTML = hasFilter
             ? `
               <div class="empty-state-card">
                 <div class="empty-state-icon" aria-hidden="true">
                   <svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                 </div>
                 <p class="empty-state-title">No matching entries</p>
-                <p class="empty-state-desc">Nothing matched "${escapeHtml(query)}". Try another keyword or date in dd/mm/yyyy format.</p>
+                <p class="empty-state-desc">Nothing matched your current search or ${historyWeekdayFilter !== 'all' ? escapeHtml(historyWeekdayFilter) + ' filter' : 'filter'}.</p>
               </div>
             `
             : `
@@ -6912,7 +7951,18 @@ create policy "Users can update own logbook"
           return;
         }
 
-        const ordered = [...weeks].reverse();
+        const ordered = weeks.map(w => Object.assign({}, w, {
+          days: historySortOrder === 'newest' ? [...w.days].reverse() : [...w.days]
+        }));
+        if (historySortOrder === 'newest') {
+          ordered.sort((a, b) => b.weekNum - a.weekNum);
+        } else if (historySortOrder === 'oldest') {
+          ordered.sort((a, b) => a.weekNum - b.weekNum);
+        } else if (historySortOrder === 'most-tasks') {
+          ordered.sort((a, b) => (b.taskCount - a.taskCount) || (b.weekNum - a.weekNum));
+        } else if (historySortOrder === 'fewest-tasks') {
+          ordered.sort((a, b) => (a.taskCount - b.taskCount) || (b.weekNum - a.weekNum));
+        }
 
         container.innerHTML = ordered.map(wk => {
           const summaryText = state.weeklySummaries[String(wk.weekNum)] || '';
@@ -7663,16 +8713,30 @@ create policy "Users can update own logbook"
             if (tag === 'p' || tag === 'div') {
               flushInline(60);
               const runs = docxRichInlineRuns(node, baseOpts);
-              if (runs) paras.push(docxPara(runs, Object.assign({}, paraOpts, { spaceAfter: 60 })));
+              const indM = /\bql-indent-([1-6])\b/.exec(node.className || '');
+              const indentLeft = indM ? Number(indM[1]) * 360 : 0;
+              if (runs) paras.push(docxPara(runs, Object.assign({}, paraOpts, { spaceAfter: 60, indentLeft })));
               return;
             }
             if (tag === 'ul' || tag === 'ol') {
               flushInline(60);
               const items = Array.from(node.children).filter(c => c.tagName.toLowerCase() === 'li');
-              items.forEach((li, idx) => {
-                const prefix = tag === 'ol' ? `${idx + 1}. ` : '• ';
+              const bulletChars = ['• ', '◦ ', '▪ '];
+              const levelCounts = {};
+              items.forEach(li => {
+                const indM = /\bql-indent-([1-6])\b/.exec(li.className || '');
+                const lvl = indM ? Number(indM[1]) : 0;
+                levelCounts[lvl] = (levelCounts[lvl] || 0) + 1;
+                Object.keys(levelCounts).forEach(k => { if (Number(k) > lvl) levelCounts[k] = 0; });
+                const n = levelCounts[lvl];
+                let prefix = bulletChars[lvl % bulletChars.length];
+                if (tag === 'ol') {
+                  if (lvl % 3 === 1) prefix = String.fromCharCode(96 + ((n - 1) % 26) + 1) + '. ';
+                  else prefix = `${n}. `;
+                }
+                const indentLeft = (lvl + 1) * 320;
                 const runs = docxRun(prefix, baseOpts) + docxRichInlineRuns(li, baseOpts);
-                paras.push(docxPara(runs, Object.assign({}, paraOpts, { spaceAfter: 40 })));
+                paras.push(docxPara(runs, Object.assign({}, paraOpts, { spaceAfter: 40, indentLeft })));
               });
               return;
             }
@@ -7706,6 +8770,7 @@ create policy "Users can update own logbook"
         const after = opts.spaceAfter !== undefined ? opts.spaceAfter : 80;
         const line = opts.line !== undefined ? opts.line : 276;
         pPr.push(`<w:spacing w:before="${before}" w:after="${after}" w:line="${line}" w:lineRule="auto"/>`);
+        if (opts.indentLeft) pPr.push(`<w:ind w:left="${opts.indentLeft}"/>`);
         if (opts.align) pPr.push(`<w:jc w:val="${opts.align}"/>`);
         const prXml = pPr.length ? `<w:pPr>${pPr.join('')}</w:pPr>` : '';
         return `<w:p>${prXml}${runsXml || ''}</w:p>`;
@@ -8429,7 +9494,7 @@ create policy "Users can update own logbook"
         if (tabName === 'history') renderHistoryTab();
         if (tabName === 'compile') renderCompileTab();
         if (tabName === 'details') renderDetailsTab();
-        if (tabName === 'settings') { renderReminderCard(); renderCloudSyncCard(); }
+        if (tabName === 'settings') { renderSecurityCard(); renderReminderCard(); renderCloudSyncCard(); }
       }
 
       function renderAll() {
@@ -8703,6 +9768,17 @@ create policy "Users can update own logbook"
           searchInput.focus();
         });
         document.getElementById('history-week-filter').addEventListener('change', renderHistoryTab);
+        const histSortEl = document.getElementById('history-sort-order');
+        if (histSortEl) histSortEl.addEventListener('change', renderHistoryTab);
+        const histWeekdayBar = document.getElementById('history-weekday-bar');
+        if (histWeekdayBar) {
+          histWeekdayBar.addEventListener('click', e => {
+            const chip = e.target.closest('[data-weekday-filter]');
+            if (!chip) return;
+            historyWeekdayFilter = chip.getAttribute('data-weekday-filter');
+            renderHistoryTab();
+          });
+        }
 
         const historyList = document.getElementById('history-weeks-list');
         historyList.addEventListener('click', e => {
@@ -9112,6 +10188,108 @@ create policy "Users can update own logbook"
           if (e.target.id === 'sig-dialog-scrim') closeSignaturePad();
         });
 
+        // Screen Lock & Biometrics controls
+        const lockToggle = document.getElementById('toggle-app-lock');
+        const bioToggle = document.getElementById('toggle-biometric-unlock');
+        const lockTimeout = document.getElementById('select-lock-timeout');
+        const btnChangePin = document.getElementById('btn-change-pin');
+        const btnLockNow = document.getElementById('btn-lock-now');
+
+        if (lockToggle) {
+          lockToggle.addEventListener('change', () => {
+            const cfg = getLockSettings();
+            if (lockToggle.checked) {
+              if (!cfg.pinHash) {
+                openPinSetupModal(true);
+              } else {
+                cfg.enabled = true;
+                saveLockSettings(cfg);
+                showSnackbar('Screen lock enabled');
+              }
+            } else {
+              cfg.enabled = false;
+              saveLockSettings(cfg);
+              showSnackbar('Screen lock disabled');
+            }
+          });
+        }
+
+        if (bioToggle) {
+          bioToggle.addEventListener('change', () => {
+            const cfg = getLockSettings();
+            cfg.biometric = bioToggle.checked;
+            saveLockSettings(cfg);
+            showSnackbar(cfg.biometric ? 'Biometric unlock enabled' : 'Biometric unlock disabled');
+          });
+        }
+
+        if (lockTimeout) {
+          lockTimeout.addEventListener('change', () => {
+            const cfg = getLockSettings();
+            cfg.timeoutSec = Number(lockTimeout.value);
+            saveLockSettings(cfg);
+            showSnackbar('Auto-lock timeout updated');
+          });
+        }
+
+        if (btnChangePin) btnChangePin.addEventListener('click', () => openPinSetupModal(false));
+        if (btnLockNow) btnLockNow.addEventListener('click', () => showLockScreen(true));
+
+        document.getElementById('btn-pin-setup-cancel').addEventListener('click', () => closePinSetupModal(false));
+        document.getElementById('pin-setup-scrim').addEventListener('click', e => {
+          if (e.target.id === 'pin-setup-scrim') closePinSetupModal(false);
+        });
+        document.getElementById('btn-pin-setup-save').addEventListener('click', async () => {
+          const p1 = (document.getElementById('input-pin-new').value || '').trim();
+          const p2 = (document.getElementById('input-pin-confirm').value || '').trim();
+          const err = document.getElementById('pin-setup-err');
+          if (!/^\d{4,6}$/.test(p1) || p1 !== p2) {
+            err.classList.add('visible');
+            return;
+          }
+          err.classList.remove('visible');
+          const cfg = getLockSettings();
+          cfg.pinHash = await hashPin(p1);
+          cfg.pinLen = p1.length;
+          if (pendingEnableLockAfterPin) cfg.enabled = true;
+          pendingEnableLockAfterPin = false;
+          saveLockSettings(cfg);
+          closePinSetupModal(true);
+          showSnackbar('Screen lock PIN saved');
+        });
+
+        document.getElementById('lock-keypad').addEventListener('click', e => {
+          const digitBtn = e.target.closest('[data-pin-digit]');
+          if (digitBtn) {
+            handlePinDigitInput(digitBtn.getAttribute('data-pin-digit'));
+            return;
+          }
+          if (e.target.closest('#btn-lock-backspace')) {
+            if (lockPinEntry.length > 0) {
+              lockPinEntry = lockPinEntry.slice(0, -1);
+              renderLockPinDots();
+            }
+            return;
+          }
+          if (e.target.closest('#btn-lock-biometric')) {
+            triggerBiometricPrompt();
+          }
+        });
+
+        document.addEventListener('keydown', e => {
+          if (!isAppLocked) return;
+          if (/^[0-9]$/.test(e.key)) {
+            e.preventDefault();
+            handlePinDigitInput(e.key);
+          } else if (e.key === 'Backspace') {
+            e.preventDefault();
+            if (lockPinEntry.length > 0) {
+              lockPinEntry = lockPinEntry.slice(0, -1);
+              renderLockPinDots();
+            }
+          }
+        });
+
         // Weekday Reminder controls
         const remToggle = document.getElementById('toggle-reminder-enabled');
         const remTime = document.getElementById('input-reminder-time');
@@ -9145,10 +10323,16 @@ create policy "Users can update own logbook"
         selectedWeekNum = Math.max(1, getWeekNumber(getTodayIso(), getAnchorIso()));
         bindEvents();
         renderAll();
+        renderSecurityCard();
         renderReminderCard();
         restoreSavedDraftIfAny();
         initNativeAndroidBackButton();
+        initAutoLockLifecycle();
         initSupabaseClient();
+        if (getLockSettings().enabled && getLockSettings().pinHash) {
+          showLockScreen(true);
+        }
+        dismissLaunchSplash();
       });
     })();
   </script>
