@@ -1,0 +1,11 @@
+{
+  "appId": "com.logbook.attachment",
+  "appName": "Attachment Log Book",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
