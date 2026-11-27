@@ -40,7 +40,13 @@ jobs:
             npx cap add android
           fi
 
-      - name: Enable native Android Save as PDF (PrintManager bridge)
+      - name: Add AndroidX Biometric dependency
+        run: |
+          if ! grep -q "androidx.biometric:biometric" android/app/build.gradle; then
+            sed -i 's/dependencies {/dependencies {\n    implementation "androidx.biometric:biometric:1.1.0"/' android/app/build.gradle
+          fi
+
+      - name: Enable native Android Save as PDF & BiometricPrompt bridges
         run: |
           cat << 'EOF' > android/app/src/main/java/com/logbook/attachment/MainActivity.java
           package com.logbook.attachment;
@@ -52,7 +58,12 @@ jobs:
           import android.print.PrintManager;
           import android.webkit.JavascriptInterface;
           import android.webkit.WebView;
+          import androidx.annotation.NonNull;
+          import androidx.biometric.BiometricManager;
+          import androidx.biometric.BiometricPrompt;
+          import androidx.core.content.ContextCompat;
           import com.getcapacitor.BridgeActivity;
+          import java.util.concurrent.Executor;
 
           public class MainActivity extends BridgeActivity {
               @Override
@@ -79,7 +90,62 @@ jobs:
                               });
                           }
                       }, "AndroidPrint");
+
+                      this.bridge.getWebView().addJavascriptInterface(new Object() {
+                          @JavascriptInterface
+                          public boolean isAvailable() {
+                              BiometricManager bm = BiometricManager.from(MainActivity.this);
+                              int auth = BiometricManager.Authenticators.BIOMETRIC_STRONG
+                                      | BiometricManager.Authenticators.BIOMETRIC_WEAK
+                                      | BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+                              return bm.canAuthenticate(auth) == BiometricManager.BIOMETRIC_SUCCESS;
+                          }
+
+                          @JavascriptInterface
+                          public void authenticate(final String title, final String subtitle) {
+                              runOnUiThread(() -> {
+                                  Executor executor = ContextCompat.getMainExecutor(MainActivity.this);
+                                  BiometricPrompt prompt = new BiometricPrompt(MainActivity.this, executor,
+                                          new BiometricPrompt.AuthenticationCallback() {
+                                              @Override
+                                              public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                                                  notifyBiometricJs(true, "");
+                                              }
+
+                                              @Override
+                                              public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                                                  notifyBiometricJs(false, errString != null ? errString.toString() : "Authentication cancelled");
+                                              }
+
+                                              @Override
+                                              public void onAuthenticationFailed() {
+                                                  notifyBiometricJs(false, "Biometric not recognized");
+                                              }
+                                          });
+                                  BiometricPrompt.PromptInfo info = new BiometricPrompt.PromptInfo.Builder()
+                                          .setTitle(title != null && !title.isEmpty() ? title : "Unlock Log Book")
+                                          .setSubtitle(subtitle != null ? subtitle : "Verify with fingerprint or face")
+                                          .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG
+                                                  | BiometricManager.Authenticators.BIOMETRIC_WEAK
+                                                  | BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                                          .build();
+                                  prompt.authenticate(info);
+                              });
+                          }
+                      }, "AndroidBiometric");
                   }
+              }
+
+              private void notifyBiometricJs(final boolean success, final String message) {
+                  runOnUiThread(() -> {
+                      WebView webView = bridge != null ? bridge.getWebView() : null;
+                      if (webView != null) {
+                          String safeMsg = message == null ? "" : message.replace("\\", "\\\\").replace("'", "\\'");
+                          webView.evaluateJavascript(
+                                  "if(window.__onNativeBiometricResult){window.__onNativeBiometricResult(" + success + ",'" + safeMsg + "');}",
+                                  null);
+                      }
+                  });
               }
           }
           EOF
