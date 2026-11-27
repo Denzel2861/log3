@@ -7512,10 +7512,24 @@ create policy "Users can update own logbook"
 
         document.getElementById('btn-export-pdf').addEventListener('click', () => {
           renderCompileTab();
-          if (isNativeAndroidApp()) {
-            showSnackbar('Use "Download Word (.docx)" in the Android app to save/share, or open in Chrome for PDF.');
+          const d = state.details;
+          const baseName = (d.fullName || 'Attachment_LogBook')
+            .replace(/[^a-z0-9\-_]+/gi, '_')
+            .replace(/^_+|_+$/g, '') || 'Attachment_LogBook';
+          const suffix = compileScopeMode === 'single'
+            ? (compileLayoutStyle === 'monthly' && compileMonthKey ? `_${compileMonthKey}` : (compileWeekNum !== null ? `_Week_${compileWeekNum}` : ''))
+            : '';
+          const jobName = `${baseName}${suffix}`;
+
+          if (window.AndroidPrint && typeof window.AndroidPrint.print === 'function') {
+            try {
+              window.AndroidPrint.print(jobName);
+              return;
+            } catch (err) {
+              console.error('AndroidPrint failed:', err);
+            }
           }
-          try { window.print(); } catch (e) { }
+          window.print();
         });
         document.getElementById('btn-export-doc').addEventListener('click', downloadWordDoc);
 
