@@ -3989,75 +3989,211 @@
 
 
     /* ==========================================================================
-       16. LIQUID GLASS DESIGN SYSTEM (FROSTED TRANSLUCENCY & SPECULAR DEPTH)
+       16. GLOSSY LIQUID GLASS DESIGN SYSTEM (CRYSTAL CLARITY & SPECULAR SHEEN)
        ========================================================================== */
     :root {
-      --glass-surface: rgba(255, 255, 255, 0.56);
-      --glass-surface-strong: rgba(255, 255, 255, 0.72);
-      --glass-surface-soft: rgba(255, 255, 255, 0.38);
-      --glass-chrome: rgba(246, 250, 255, 0.54);
-      --glass-nav: rgba(255, 255, 255, 0.62);
-      --glass-input: rgba(255, 255, 255, 0.48);
-      --glass-border: rgba(255, 255, 255, 0.68);
-      --glass-border-subtle: rgba(255, 255, 255, 0.46);
-      --glass-specular-top: rgba(255, 255, 255, 0.92);
-      --glass-specular-bottom: rgba(255, 255, 255, 0.24);
-      --glass-shadow: 0 10px 32px rgba(15, 23, 42, 0.09), 0 2px 8px rgba(15, 23, 42, 0.05);
-      --glass-shadow-float: 0 14px 38px rgba(15, 23, 42, 0.16), 0 3px 10px rgba(15, 23, 42, 0.08);
-      --glass-orb-1: color-mix(in srgb, var(--primary) 28%, transparent);
-      --glass-orb-2: rgba(56, 189, 248, 0.24);
-      --glass-orb-3: rgba(167, 139, 250, 0.20);
-      --glass-bg-base: linear-gradient(155deg, #e7f0fb 0%, #eff5fd 48%, #e4ecfa 100%);
+      --lg-bg-base: linear-gradient(145deg, #d7e8ff 0%, #eef6ff 45%, #d9e6ff 100%);
+      --lg-caustic-1: color-mix(in srgb, var(--primary) 42%, transparent);
+      --lg-caustic-2: rgba(14, 165, 233, 0.34);
+      --lg-caustic-3: rgba(139, 92, 246, 0.28);
+
+      /* Crystal-clear glossy glass fills (not milky/frosted) */
+      --lg-card-bg: linear-gradient(
+        152deg,
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.28) 38%,
+        rgba(255, 255, 255, 0.16) 68%,
+        rgba(255, 255, 255, 0.44) 100%
+      );
+      --lg-card-bg-strong: linear-gradient(
+        152deg,
+        rgba(255, 255, 255, 0.86) 0%,
+        rgba(255, 255, 255, 0.48) 45%,
+        rgba(255, 255, 255, 0.36) 76%,
+        rgba(255, 255, 255, 0.62) 100%
+      );
+      --lg-inner-bg: linear-gradient(
+        158deg,
+        rgba(255, 255, 255, 0.54) 0%,
+        rgba(255, 255, 255, 0.18) 52%,
+        rgba(255, 255, 255, 0.32) 100%
+      );
+      --lg-chrome-bg: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.66) 0%,
+        rgba(244, 249, 255, 0.30) 55%,
+        rgba(255, 255, 255, 0.42) 100%
+      );
+      --lg-nav-bg: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.74) 0%,
+        rgba(255, 255, 255, 0.26) 44%,
+        rgba(255, 255, 255, 0.18) 72%,
+        rgba(255, 255, 255, 0.50) 100%
+      );
+      --lg-input-bg: linear-gradient(
+        170deg,
+        rgba(255, 255, 255, 0.62) 0%,
+        rgba(255, 255, 255, 0.34) 100%
+      );
+
+      --lg-rim: rgba(255, 255, 255, 0.88);
+      --lg-rim-soft: rgba(255, 255, 255, 0.62);
+      --lg-specular-top: rgba(255, 255, 255, 0.98);
+      --lg-specular-side: rgba(255, 255, 255, 0.60);
+      --lg-specular-bottom: rgba(255, 255, 255, 0.42);
+      --lg-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.12),
+        0 2px 6px rgba(15, 23, 42, 0.06);
+      --lg-shadow-float:
+        0 16px 38px rgba(15, 23, 42, 0.20),
+        0 4px 12px rgba(15, 23, 42, 0.10);
+      --lg-sheen: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.12) 48%,
+        rgba(255, 255, 255, 0) 50%
+      );
     }
 
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --glass-surface: rgba(26, 31, 42, 0.52);
-        --glass-surface-strong: rgba(30, 36, 48, 0.72);
-        --glass-surface-soft: rgba(255, 255, 255, 0.06);
-        --glass-chrome: rgba(16, 20, 28, 0.56);
-        --glass-nav: rgba(22, 27, 37, 0.64);
-        --glass-input: rgba(14, 18, 25, 0.48);
-        --glass-border: rgba(255, 255, 255, 0.16);
-        --glass-border-subtle: rgba(255, 255, 255, 0.10);
-        --glass-specular-top: rgba(255, 255, 255, 0.24);
-        --glass-specular-bottom: rgba(255, 255, 255, 0.04);
-        --glass-shadow: 0 12px 34px rgba(0, 0, 0, 0.42), 0 2px 8px rgba(0, 0, 0, 0.26);
-        --glass-shadow-float: 0 18px 42px rgba(0, 0, 0, 0.58), 0 4px 14px rgba(0, 0, 0, 0.36);
-        --glass-orb-1: color-mix(in srgb, var(--primary) 26%, transparent);
-        --glass-orb-2: rgba(14, 165, 233, 0.16);
-        --glass-orb-3: rgba(139, 92, 246, 0.16);
-        --glass-bg-base: linear-gradient(155deg, #090c12 0%, #0e131e 50%, #090d16 100%);
+        --lg-bg-base: linear-gradient(145deg, #050811 0%, #0b1326 48%, #060a14 100%);
+        --lg-caustic-1: color-mix(in srgb, var(--primary) 38%, transparent);
+        --lg-caustic-2: rgba(14, 165, 233, 0.26);
+        --lg-caustic-3: rgba(168, 85, 247, 0.24);
+
+        --lg-card-bg: linear-gradient(
+          152deg,
+          rgba(255, 255, 255, 0.17) 0%,
+          rgba(255, 255, 255, 0.05) 38%,
+          rgba(12, 18, 30, 0.34) 72%,
+          rgba(255, 255, 255, 0.11) 100%
+        );
+        --lg-card-bg-strong: linear-gradient(
+          152deg,
+          rgba(255, 255, 255, 0.24) 0%,
+          rgba(22, 28, 42, 0.62) 45%,
+          rgba(16, 22, 34, 0.72) 78%,
+          rgba(255, 255, 255, 0.15) 100%
+        );
+        --lg-inner-bg: linear-gradient(
+          158deg,
+          rgba(255, 255, 255, 0.13) 0%,
+          rgba(15, 20, 32, 0.28) 54%,
+          rgba(255, 255, 255, 0.08) 100%
+        );
+        --lg-chrome-bg: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.15) 0%,
+          rgba(10, 15, 26, 0.42) 55%,
+          rgba(255, 255, 255, 0.08) 100%
+        );
+        --lg-nav-bg: linear-gradient(
+          165deg,
+          rgba(255, 255, 255, 0.22) 0%,
+          rgba(255, 255, 255, 0.06) 44%,
+          rgba(10, 15, 26, 0.44) 74%,
+          rgba(255, 255, 255, 0.14) 100%
+        );
+        --lg-input-bg: linear-gradient(
+          170deg,
+          rgba(255, 255, 255, 0.11) 0%,
+          rgba(8, 12, 22, 0.44) 100%
+        );
+
+        --lg-rim: rgba(255, 255, 255, 0.30);
+        --lg-rim-soft: rgba(255, 255, 255, 0.18);
+        --lg-specular-top: rgba(255, 255, 255, 0.52);
+        --lg-specular-side: rgba(255, 255, 255, 0.22);
+        --lg-specular-bottom: rgba(255, 255, 255, 0.12);
+        --lg-shadow:
+          0 12px 32px rgba(0, 0, 0, 0.52),
+          0 2px 8px rgba(0, 0, 0, 0.32);
+        --lg-shadow-float:
+          0 18px 44px rgba(0, 0, 0, 0.68),
+          0 4px 14px rgba(0, 0, 0, 0.42);
+        --lg-sheen: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.26) 0%,
+          rgba(255, 255, 255, 0.05) 48%,
+          rgba(255, 255, 255, 0) 50%
+        );
       }
     }
 
     :root[data-theme="dark"] {
-      --glass-surface: rgba(26, 31, 42, 0.52);
-      --glass-surface-strong: rgba(30, 36, 48, 0.72);
-      --glass-surface-soft: rgba(255, 255, 255, 0.06);
-      --glass-chrome: rgba(16, 20, 28, 0.56);
-      --glass-nav: rgba(22, 27, 37, 0.64);
-      --glass-input: rgba(14, 18, 25, 0.48);
-      --glass-border: rgba(255, 255, 255, 0.16);
-      --glass-border-subtle: rgba(255, 255, 255, 0.10);
-      --glass-specular-top: rgba(255, 255, 255, 0.24);
-      --glass-specular-bottom: rgba(255, 255, 255, 0.04);
-      --glass-shadow: 0 12px 34px rgba(0, 0, 0, 0.42), 0 2px 8px rgba(0, 0, 0, 0.26);
-      --glass-shadow-float: 0 18px 42px rgba(0, 0, 0, 0.58), 0 4px 14px rgba(0, 0, 0, 0.36);
-      --glass-orb-1: color-mix(in srgb, var(--primary) 26%, transparent);
-      --glass-orb-2: rgba(14, 165, 233, 0.16);
-      --glass-orb-3: rgba(139, 92, 246, 0.16);
-      --glass-bg-base: linear-gradient(155deg, #090c12 0%, #0e131e 50%, #090d16 100%);
+      --lg-bg-base: linear-gradient(145deg, #050811 0%, #0b1326 48%, #060a14 100%);
+      --lg-caustic-1: color-mix(in srgb, var(--primary) 38%, transparent);
+      --lg-caustic-2: rgba(14, 165, 233, 0.26);
+      --lg-caustic-3: rgba(168, 85, 247, 0.24);
+
+      --lg-card-bg: linear-gradient(
+        152deg,
+        rgba(255, 255, 255, 0.17) 0%,
+        rgba(255, 255, 255, 0.05) 38%,
+        rgba(12, 18, 30, 0.34) 72%,
+        rgba(255, 255, 255, 0.11) 100%
+      );
+      --lg-card-bg-strong: linear-gradient(
+        152deg,
+        rgba(255, 255, 255, 0.24) 0%,
+        rgba(22, 28, 42, 0.62) 45%,
+        rgba(16, 22, 34, 0.72) 78%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
+      --lg-inner-bg: linear-gradient(
+        158deg,
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(15, 20, 32, 0.28) 54%,
+        rgba(255, 255, 255, 0.08) 100%
+      );
+      --lg-chrome-bg: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(10, 15, 26, 0.42) 55%,
+        rgba(255, 255, 255, 0.08) 100%
+      );
+      --lg-nav-bg: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.06) 44%,
+        rgba(10, 15, 26, 0.44) 74%,
+        rgba(255, 255, 255, 0.14) 100%
+      );
+      --lg-input-bg: linear-gradient(
+        170deg,
+        rgba(255, 255, 255, 0.11) 0%,
+        rgba(8, 12, 22, 0.44) 100%
+      );
+
+      --lg-rim: rgba(255, 255, 255, 0.30);
+      --lg-rim-soft: rgba(255, 255, 255, 0.18);
+      --lg-specular-top: rgba(255, 255, 255, 0.52);
+      --lg-specular-side: rgba(255, 255, 255, 0.22);
+      --lg-specular-bottom: rgba(255, 255, 255, 0.12);
+      --lg-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.52),
+        0 2px 8px rgba(0, 0, 0, 0.32);
+      --lg-shadow-float:
+        0 18px 44px rgba(0, 0, 0, 0.68),
+        0 4px 14px rgba(0, 0, 0, 0.42);
+      --lg-sheen: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.26) 0%,
+        rgba(255, 255, 255, 0.05) 48%,
+        rgba(255, 255, 255, 0) 50%
+      );
     }
 
-    /* Ambient Luminous Backdrop (visible through frosted liquid glass) */
+    /* Vivid Liquid Caustic Backdrop (visible crisply through glossy glass) */
     html {
       background: var(--bg);
     }
 
     body {
       position: relative;
-      background: var(--glass-bg-base);
+      background: var(--lg-bg-base);
       background-attachment: fixed;
     }
 
@@ -4068,47 +4204,48 @@
       z-index: -1;
       pointer-events: none;
       background:
-        radial-gradient(62vw 52vh at 10% 8%, var(--glass-orb-1) 0%, transparent 66%),
-        radial-gradient(56vw 46vh at 90% 18%, var(--glass-orb-2) 0%, transparent 66%),
-        radial-gradient(68vw 56vh at 52% 94%, var(--glass-orb-3) 0%, transparent 68%);
+        radial-gradient(58vw 46vh at 14% 10%, var(--lg-caustic-1) 0%, transparent 62%),
+        radial-gradient(52vw 42vh at 88% 22%, var(--lg-caustic-2) 0%, transparent 60%),
+        radial-gradient(64vw 50vh at 48% 92%, var(--lg-caustic-3) 0%, transparent 64%);
     }
 
-    /* Sticky Liquid Glass Top App Bar */
+    /* Sticky Glossy Liquid Glass Top Bar (crisp low-blur refraction + mirror edge) */
     .top-chrome {
-      background: var(--glass-chrome);
-      backdrop-filter: blur(26px) saturate(190%);
-      -webkit-backdrop-filter: blur(26px) saturate(190%);
-      border-bottom: 1px solid var(--glass-border);
-      box-shadow: inset 0 -1px 0 var(--glass-specular-bottom), 0 6px 24px rgba(15, 23, 42, 0.08);
+      background: var(--lg-chrome-bg);
+      backdrop-filter: blur(6px) saturate(215%) contrast(1.06) brightness(1.04);
+      -webkit-backdrop-filter: blur(6px) saturate(215%) contrast(1.06) brightness(1.04);
+      border-bottom: 1px solid var(--lg-rim);
+      box-shadow:
+        inset 0 1px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom),
+        0 6px 22px rgba(15, 23, 42, 0.10);
     }
 
-    /* Frosted Liquid Glass Cards & Panels */
+    /* Glossy Liquid Glass Cards (clear glass with razor specular rim & sheen) */
     .m3-card,
     .stat-card,
     .date-nav-card,
     .week-card,
     .export-toolbar {
-      background: var(--glass-surface);
-      backdrop-filter: blur(22px) saturate(185%);
-      -webkit-backdrop-filter: blur(22px) saturate(185%);
-      border: 1px solid var(--glass-border);
+      position: relative;
+      background: var(--lg-card-bg);
+      backdrop-filter: blur(5px) saturate(210%) contrast(1.05) brightness(1.04);
+      -webkit-backdrop-filter: blur(5px) saturate(210%) contrast(1.05) brightness(1.04);
+      border: 1px solid var(--lg-rim);
       box-shadow:
-        inset 0 1px 0 var(--glass-specular-top),
-        inset 0 -1px 0 var(--glass-specular-bottom),
-        var(--glass-shadow);
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 1px 0 0 var(--lg-specular-side),
+        inset 0 -1.5px 0 var(--lg-specular-bottom),
+        var(--lg-shadow);
     }
 
-    .week-card-header {
-      background: var(--glass-surface-soft);
-      border-bottom: 1px solid var(--glass-border-subtle);
-    }
-
+    .week-card-header,
     .week-summary-section {
-      background: var(--glass-surface-soft);
-      border-top: 1px solid var(--glass-border-subtle);
+      background: var(--lg-inner-bg);
+      border-color: var(--lg-rim-soft);
     }
 
-    /* Inner Layered Glass Surfaces */
+    /* Inner Clear Glass Layers */
     .task-card,
     .history-task-item,
     .sync-box,
@@ -4119,66 +4256,69 @@
     .admin-unlock-prompt,
     .admin-unlocked-panel,
     .sql-details {
-      background: var(--glass-surface-soft);
-      border: 1px solid var(--glass-border-subtle);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top);
+      background: var(--lg-inner-bg);
+      border: 1px solid var(--lg-rim-soft);
+      box-shadow:
+        inset 0 1px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom);
     }
 
     .task-card:hover,
     .history-task-item:hover {
-      background: var(--glass-surface-strong);
-      border-color: var(--glass-border);
+      background: var(--lg-card-bg-strong);
+      border-color: var(--lg-rim);
     }
 
     .task-card.is-editing {
-      background: color-mix(in srgb, var(--primary-container) 72%, transparent);
+      background: linear-gradient(
+        152deg,
+        color-mix(in srgb, var(--primary-container) 78%, rgba(255, 255, 255, 0.35)) 0%,
+        color-mix(in srgb, var(--primary-container) 48%, transparent) 100%
+      );
       border-color: var(--primary);
     }
 
-    /* Frosted Glass Inputs, Selects, Search & Quill Editor */
+    /* Clear Glossy Inputs, Selects, Search & Quill Editor */
     .m3-input,
     .m3-select,
     .m3-textarea,
     .m3-search-bar,
     .week-filter-select,
     .scope-select,
-    .quill-wrapper {
-      background: var(--glass-input);
-      border-color: var(--glass-border);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top);
+    .quill-wrapper,
+    .daily-date-group .m3-input,
+    .week-stepper-display {
+      background: var(--lg-input-bg);
+      border: 1px solid var(--lg-rim);
+      box-shadow:
+        inset 0 1px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom);
     }
 
     .m3-search-bar,
     .week-filter-select,
     .scope-select {
-      backdrop-filter: blur(18px) saturate(175%);
-      -webkit-backdrop-filter: blur(18px) saturate(175%);
+      backdrop-filter: blur(5px) saturate(200%);
+      -webkit-backdrop-filter: blur(5px) saturate(200%);
     }
 
     .m3-input:focus,
     .m3-select:focus,
     .m3-textarea:focus,
     .quill-wrapper:focus-within {
-      background: var(--glass-surface-strong);
+      background: var(--lg-card-bg-strong);
     }
 
     .quill-wrapper .ql-toolbar.ql-snow {
-      background: var(--glass-surface-soft);
-      border-bottom: 1px solid var(--glass-border-subtle);
+      background: var(--lg-inner-bg);
+      border-bottom: 1px solid var(--lg-rim-soft);
     }
 
     .quill-wrapper .ql-container.ql-snow {
       background: transparent;
     }
 
-    .daily-date-group .m3-input,
-    .week-stepper-display {
-      background: var(--glass-input);
-      border-color: var(--glass-border);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top);
-    }
-
-    /* Liquid Glass Pills, Controls, Chips & Buttons */
+    /* High-Gloss Glass Pills, Segmented Controls, Chips & Outlined Buttons */
     .segmented-control,
     .settings-nav-btn,
     .sync-pill,
@@ -4193,14 +4333,20 @@
     .btn-icon,
     .btn-icon-outlined,
     .date-cal-btn {
-      background: var(--glass-surface-soft);
-      border-color: var(--glass-border);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top);
+      background: var(--lg-inner-bg);
+      border: 1px solid var(--lg-rim);
+      box-shadow:
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom),
+        0 2px 8px rgba(15, 23, 42, 0.08);
     }
 
     .segment-btn.active {
-      background: var(--glass-surface-strong);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top), 0 2px 8px rgba(15, 23, 42, 0.12);
+      background: var(--lg-card-bg-strong);
+      box-shadow:
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom),
+        0 3px 10px rgba(15, 23, 42, 0.14);
     }
 
     .settings-nav-btn.active,
@@ -4211,81 +4357,108 @@
     .custom-color-label.active,
     .btn-tonal,
     .date-context-badge {
-      background: color-mix(in srgb, var(--primary-container) 78%, transparent);
-      backdrop-filter: blur(12px) saturate(160%);
-      -webkit-backdrop-filter: blur(12px) saturate(160%);
-      box-shadow: inset 0 1px 0 var(--glass-specular-top);
+      background:
+        var(--lg-sheen),
+        color-mix(in srgb, var(--primary-container) 72%, transparent);
+      border: 1px solid var(--lg-rim);
+      box-shadow:
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom),
+        0 4px 12px var(--primary-ring);
     }
 
+    /* Jewel-Like Glossy Primary Buttons */
     .btn-filled {
+      background-image: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.34) 0%,
+        rgba(255, 255, 255, 0.08) 46%,
+        rgba(0, 0, 0, 0.04) 50%,
+        rgba(255, 255, 255, 0.12) 100%
+      );
+      border: 1px solid rgba(255, 255, 255, 0.42);
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.36),
-        0 6px 18px var(--primary-shadow);
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.62),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+        0 8px 20px var(--primary-shadow);
     }
 
     .m3-progress-track {
-      background: var(--glass-surface-soft);
-      border: 1px solid var(--glass-border-subtle);
+      background: var(--lg-inner-bg);
+      border: 1px solid var(--lg-rim-soft);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.10);
     }
 
-    /* Frosted Desk around Crisp Solid White A4 Preview */
+    .m3-progress-fill {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    /* Clear Glass Desk around Solid White A4 Preview */
     .preview-desk {
-      background: var(--glass-surface-soft);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      border: 1px solid var(--glass-border);
+      background: var(--lg-inner-bg);
+      backdrop-filter: blur(4px) saturate(190%);
+      -webkit-backdrop-filter: blur(4px) saturate(190%);
+      border: 1px solid var(--lg-rim);
+      box-shadow: inset 0 1px 0 var(--lg-specular-top);
     }
 
-    /* Liquid Glass Modal Dialogs & Snackbar */
+    /* Glossy Modal Dialogs & Snackbar */
     .dialog-scrim {
-      background: rgba(8, 12, 22, 0.38);
-      backdrop-filter: blur(14px) saturate(150%);
-      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      background: rgba(8, 12, 22, 0.30);
+      backdrop-filter: blur(6px) saturate(180%);
+      -webkit-backdrop-filter: blur(6px) saturate(180%);
     }
 
     .m3-dialog {
-      background: var(--glass-surface-strong);
-      backdrop-filter: blur(28px) saturate(200%);
-      -webkit-backdrop-filter: blur(28px) saturate(200%);
-      border: 1px solid var(--glass-border);
+      background: var(--lg-card-bg-strong);
+      backdrop-filter: blur(8px) saturate(220%) contrast(1.06);
+      -webkit-backdrop-filter: blur(8px) saturate(220%) contrast(1.06);
+      border: 1px solid var(--lg-rim);
       box-shadow:
-        inset 0 1px 0 var(--glass-specular-top),
-        inset 0 -1px 0 var(--glass-specular-bottom),
-        var(--glass-shadow-float);
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 1px 0 0 var(--lg-specular-side),
+        inset 0 -1.5px 0 var(--lg-specular-bottom),
+        var(--lg-shadow-float);
     }
 
     .m3-snackbar {
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(6px) saturate(200%);
+      -webkit-backdrop-filter: blur(6px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        var(--lg-shadow-float);
     }
 
-    /* Liquid Glass App Lock Screen & Keypad */
+    /* Glossy Liquid Glass Lock Screen & Keypad */
     .app-lock-overlay {
-      background: var(--glass-chrome);
-      backdrop-filter: blur(32px) saturate(190%);
-      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      background: var(--lg-chrome-bg);
+      backdrop-filter: blur(10px) saturate(220%);
+      -webkit-backdrop-filter: blur(10px) saturate(220%);
     }
 
     .pin-key {
-      background: var(--glass-surface);
-      backdrop-filter: blur(18px) saturate(180%);
-      -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border: 1px solid var(--glass-border);
+      background: var(--lg-card-bg);
+      backdrop-filter: blur(5px) saturate(210%);
+      -webkit-backdrop-filter: blur(5px) saturate(210%);
+      border: 1px solid var(--lg-rim);
       box-shadow:
-        inset 0 1px 0 var(--glass-specular-top),
-        var(--glass-shadow);
+        inset 0 1.5px 0 var(--lg-specular-top),
+        inset 0 -1px 0 var(--lg-specular-bottom),
+        var(--lg-shadow);
     }
 
     .pin-key.pin-key-action {
-      background: var(--glass-surface-soft);
+      background: var(--lg-inner-bg);
     }
 
     .pin-key.pin-key-bio {
-      background: color-mix(in srgb, var(--primary-container) 78%, transparent);
+      background:
+        var(--lg-sheen),
+        color-mix(in srgb, var(--primary-container) 76%, transparent);
     }
 
-    /* Floating Liquid Glass Bottom Navigation Capsule (Android / Mobile) */
+    /* Floating Glossy Liquid Glass Bottom Capsule (Android / Mobile) */
     @media (max-width: 760px) {
       .main-content {
         padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
@@ -4299,22 +4472,29 @@
         left: 12px;
         right: 12px;
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-        border-radius: 28px;
-        background: var(--glass-nav);
-        backdrop-filter: blur(28px) saturate(210%);
-        -webkit-backdrop-filter: blur(28px) saturate(210%);
-        border: 1px solid var(--glass-border);
-        border-top: 1px solid var(--glass-specular-top);
+        border-radius: 30px;
+        background: var(--lg-nav-bg);
+        backdrop-filter: blur(7px) saturate(230%) contrast(1.08) brightness(1.06);
+        -webkit-backdrop-filter: blur(7px) saturate(230%) contrast(1.08) brightness(1.06);
+        border: 1px solid var(--lg-rim);
+        border-top: 1.5px solid var(--lg-specular-top);
         padding: 7px 8px;
         box-shadow:
-          inset 0 1px 0 var(--glass-specular-top),
-          inset 0 -1px 0 var(--glass-specular-bottom),
-          var(--glass-shadow-float);
+          inset 0 1.5px 0 var(--lg-specular-top),
+          inset 1px 0 0 var(--lg-specular-side),
+          inset 0 -1.5px 0 var(--lg-specular-bottom),
+          var(--lg-shadow-float);
       }
 
       .m3-bottom-tab.active .m3-bottom-pill {
-        background: color-mix(in srgb, var(--primary-container) 82%, transparent);
-        box-shadow: inset 0 1px 0 var(--glass-specular-top), 0 2px 10px var(--primary-ring);
+        background:
+          var(--lg-sheen),
+          color-mix(in srgb, var(--primary-container) 78%, transparent);
+        border: 1px solid var(--lg-rim);
+        box-shadow:
+          inset 0 1.5px 0 var(--lg-specular-top),
+          inset 0 -1px 0 var(--lg-specular-bottom),
+          0 4px 14px var(--primary-ring);
       }
     }
 
