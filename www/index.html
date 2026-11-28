@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Log Book">
-  <title>Attachment Log Book</title>
+  <title>LogBook</title>
   <link rel="icon" type="image/png" href="./icon.png">
   <link rel="apple-touch-icon" href="./icon.png">
 
@@ -3921,6 +3921,71 @@
         display: none !important;
       }
     }
+
+
+    /* ==========================================================================
+       15. FLUSH-LEFT FIRST-LEVEL BULLETS (EDITOR, CARDS & COMPILED SHEETS)
+       ========================================================================== */
+    .quill-wrapper .ql-editor ul,
+    .quill-wrapper .ql-editor ol {
+      margin: 0 0 4px;
+      padding-left: 0 !important;
+    }
+
+    .quill-wrapper .ql-editor li {
+      padding-left: 1.15em !important;
+    }
+
+    .quill-wrapper .ql-editor li > .ql-ui::before {
+      margin-left: -1.15em !important;
+      margin-right: 0.3em !important;
+      width: 0.85em !important;
+      text-align: left !important;
+    }
+
+    .quill-wrapper .ql-editor li.ql-indent-1 { padding-left: 2.35em !important; }
+    .quill-wrapper .ql-editor li.ql-indent-2 { padding-left: 3.55em !important; }
+    .quill-wrapper .ql-editor li.ql-indent-3 { padding-left: 4.75em !important; }
+    .quill-wrapper .ql-editor li.ql-indent-4 { padding-left: 5.95em !important; }
+    .quill-wrapper .ql-editor li.ql-indent-5 { padding-left: 7.15em !important; }
+
+    .task-body ul,
+    .task-remarks ul,
+    .bp-work-entry ul,
+    .bp-log-table ul,
+    .bp-monthly-table ul.bp-work-bullets {
+      margin: 2px 0;
+      padding-left: 0.95em !important;
+    }
+
+    .task-body ol,
+    .task-remarks ol,
+    .bp-work-entry ol {
+      margin: 2px 0;
+      padding-left: 1.25em !important;
+    }
+
+    .task-body li,
+    .task-remarks li,
+    .bp-work-entry li {
+      padding-left: 0;
+    }
+
+    .task-body li.ql-indent-1,
+    .task-remarks li.ql-indent-1,
+    .bp-work-entry li.ql-indent-1 { margin-left: 1.25em; }
+    .task-body li.ql-indent-2,
+    .task-remarks li.ql-indent-2,
+    .bp-work-entry li.ql-indent-2 { margin-left: 2.5em; }
+    .task-body li.ql-indent-3,
+    .task-remarks li.ql-indent-3,
+    .bp-work-entry li.ql-indent-3 { margin-left: 3.75em; }
+    .task-body li.ql-indent-4,
+    .task-remarks li.ql-indent-4,
+    .bp-work-entry li.ql-indent-4 { margin-left: 5em; }
+    .task-body li.ql-indent-5,
+    .task-remarks li.ql-indent-5,
+    .bp-work-entry li.ql-indent-5 { margin-left: 6.25em; }
 
   </style>
 </head>
@@ -8734,7 +8799,7 @@ create policy "Users can update own logbook"
                   if (lvl % 3 === 1) prefix = String.fromCharCode(96 + ((n - 1) % 26) + 1) + '. ';
                   else prefix = `${n}. `;
                 }
-                const indentLeft = (lvl + 1) * 320;
+                const indentLeft = lvl * 320;
                 const runs = docxRun(prefix, baseOpts) + docxRichInlineRuns(li, baseOpts);
                 paras.push(docxPara(runs, Object.assign({}, paraOpts, { spaceAfter: 40, indentLeft })));
               });
