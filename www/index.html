@@ -10180,11 +10180,43 @@ create policy "Users can update own logbook"
 
         document.getElementById('btn-sb-signout').addEventListener('click', async () => {
           if (!supabaseClient) return;
-          await supabaseClient.auth.signOut();
+          if (syncPushTimer) {
+            clearTimeout(syncPushTimer);
+            syncPushTimer = null;
+            if (navigator.onLine && currentUser && hasAnyContent(state)) {
+              try { await pushToCloud(false); } catch (e) { }
+            }
+          }
+          try { await supabaseClient.auth.signOut(); } catch (e) { }
           currentUser = null;
           lastSyncedAt = null;
-          renderCloudSyncCard();
-          showSnackbar('Signed out');
+
+          // Clear all local user info (details, logos, entries, summaries, snippets, signatures, drafts)
+          state = createEmptyState();
+          try {
+            localStorage.removeItem(STORAGE_KEY);
+            LEGACY_KEYS.forEach(k => localStorage.removeItem(k));
+            localStorage.removeItem(DRAFT_KEY);
+          } catch (e) { }
+
+          const emailEl = document.getElementById('sb-email');
+          const passEl = document.getElementById('sb-password');
+          const searchEl = document.getElementById('history-search-input');
+          if (emailEl) emailEl.value = '';
+          if (passEl) passEl.value = '';
+          if (searchEl) searchEl.value = '';
+
+          selectedDateIso = getTodayIso();
+          selectedWeekNum = 1;
+          dailyStatusFilter = 'all';
+          historyWeekdayFilter = 'all';
+          compileScopeMode = 'full';
+          compileWeekNum = null;
+          compileMonthKey = null;
+
+          clearTaskForm();
+          renderAll();
+          showSnackbar('Signed out and local data cleared');
         });
 
         document.getElementById('btn-sb-sync-now').addEventListener('click', () => reconcileWithCloud(true));
